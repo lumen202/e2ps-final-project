@@ -36,12 +36,12 @@ public class AttendanceLog extends FXModel {
     }
 
     // Gatters and Setters
-    public int getLog_ID() {
-        return logIDProperty().get().getRecordID();
+    public AttendanceRecord getLog_ID() {
+        return this.logIDProperty().get();
     }
 
-    public void setLog_ID(int log_ID) {
-        logIDProperty().get().setRecordID(log_ID);
+    public void setLog_ID(AttendanceRecord log_ID) {
+        logIDProperty().set(log_ID);
     }
 
     public int getMonth() {

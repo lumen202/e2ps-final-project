@@ -18,4 +18,6 @@ module dev.finalproject {
     opens dev.finalproject to javafx.fxml;
 
     exports dev.finalproject;
+    exports dev.finalproject.models;
+
 }
