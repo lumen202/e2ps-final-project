@@ -22,24 +22,34 @@ public class Cluster extends FXModel {
         return this.cluster_name;
     }
 
-    public int getCluster_ID() {
+    public int getClusterID() {
         return this.clusterIDProperty().get();
     }
 
-    public void setCluster_ID(int cluster_ID) {
+    public void setClusterID(int cluster_ID) {
         clusterIDProperty().set(cluster_ID);
     }
 
+
+    public void setClusterName(String clusterName) {
+        clusterNameProperty().set(clusterName);
+    }
+
+    public String getClusterName() {
+        return clusterNameProperty().get();
+    }
+
+    
     @Override
     public FXModel clone() {
-        Cluster cluster = new Cluster(this.getCluster_ID(), this.clusterNameProperty().get());
+        Cluster cluster = new Cluster(this.getClusterID(), this.clusterNameProperty().get());
         return cluster;
     }
 
     @Override
     public void copy(FXModel arg0) {
         Cluster cluster = (Cluster) arg0;
-        this.setCluster_ID(cluster.getCluster_ID());
+        this.setClusterID(cluster.getClusterID());
         this.clusterNameProperty().set(cluster.clusterNameProperty().get());
     }
 

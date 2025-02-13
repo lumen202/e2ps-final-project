@@ -6,16 +6,20 @@ import dev.sol.core.properties.beans.FXStringProperty;
 
 public class Guardian extends FXModel {
 
-    private FXIntegerProperty gurdian_ID;
+    private FXIntegerProperty gurdianID;
     private FXStringProperty firstName;
     private FXStringProperty middleName;
     private FXStringProperty lastName;
     private FXStringProperty relationship;
     private FXIntegerProperty contact;
 
-    public Guardian(int gurdian_ID, String firstName, String middleName, String lastName, String relationship,
+    public Guardian(int gurdianID,
+            String firstName,
+            String middleName,
+            String lastName,
+            String relationship,
             int contact) {
-        this.gurdian_ID = new FXIntegerProperty(gurdian_ID);
+        this.gurdianID = new FXIntegerProperty(gurdianID);
         this.firstName = new FXStringProperty(firstName);
         this.middleName = new FXStringProperty(middleName);
         this.lastName = new FXStringProperty(lastName);
@@ -25,15 +29,15 @@ public class Guardian extends FXModel {
     }
 
     public FXIntegerProperty gurdianIDProperty() {
-        return this.gurdian_ID;
+        return this.gurdianID;
     }
 
-    public int getGurdianID() {
+    public int getGuardianID() {
         return this.gurdianIDProperty().get();
     }
 
-    public void setGurdianID(int gurdian_ID) {
-        gurdianIDProperty().set(gurdian_ID);
+    public void setGuardianID(int gurdianID) {
+        gurdianIDProperty().set(gurdianID);
     }
 
     public FXStringProperty firstNameProperty() {
@@ -98,8 +102,8 @@ public class Guardian extends FXModel {
 
     @Override
     public FXModel clone() {
-        Guardian guardian = new Guardian(getGurdianID(), getFirstName(), getMiddleName(), getLastName(),
-                getRelationship(), getGurdianID());
+        Guardian guardian = new Guardian(getGuardianID(), getFirstName(), getMiddleName(), getLastName(),
+                getRelationship(), getGuardianID());
         return guardian;
     }
 
@@ -107,7 +111,7 @@ public class Guardian extends FXModel {
 
     public void copy(FXModel arg0) {
         Guardian c = (Guardian) arg0;
-        setGurdianID(c.getGurdianID());
+        setGuardianID(c.getGuardianID());
         setFirstName(c.getFirstName());
         setMiddleName(c.getMiddleName());
         setLastName(c.getLastName());

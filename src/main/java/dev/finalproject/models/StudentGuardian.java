@@ -14,6 +14,14 @@ public class StudentGuardian extends FXModel {
 
     }
 
+    public FXObjectProperty<Student> studentIdProperty() {
+        return studentId;
+    }
+
+    public FXObjectProperty<Guardian> guardianIdProperty() {
+        return guardianId;
+    }
+
     public Student getStudentId() {
         return studentId.get();
     }
@@ -28,14 +36,6 @@ public class StudentGuardian extends FXModel {
 
     public void setGuardianId(Guardian guardianId) {
         this.guardianId.set(guardianId);
-    }
-
-    public FXObjectProperty<Student> studentIdProperty() {
-        return studentId;
-    }
-
-    public FXObjectProperty<Guardian> guardianIdProperty() {
-        return guardianId;
     }
 
     @Override
