@@ -2,25 +2,24 @@ package dev.finalproject.models;
 
 import dev.sol.core.application.FXModel;
 import dev.sol.core.properties.beans.FXIntegerProperty;
-import dev.sol.core.properties.beans.FXObjectProperty;
 
 public class AttendanceLog extends FXModel {
 
-    private FXObjectProperty<AttendanceRecord> log_ID;
+    private FXIntegerProperty logID;
     private FXIntegerProperty month;
     private FXIntegerProperty day;
     private FXIntegerProperty year;
 
-    public AttendanceLog(AttendanceRecord log_ID, int month, int day, int year) {
-        this.log_ID = new FXObjectProperty<AttendanceRecord>(log_ID);
+    public AttendanceLog(int logID, int month, int day, int year) {
+        this.logID = new FXIntegerProperty(logID);
         this.month = new FXIntegerProperty(month);
         this.day = new FXIntegerProperty(day);
         this.year = new FXIntegerProperty(year);
     }
 
     // Property
-    public FXObjectProperty<AttendanceRecord> logIDProperty() {
-        return this.log_ID;
+    public FXIntegerProperty logIDProperty() {
+        return this.logID;
     }
 
     public FXIntegerProperty monthProperty() {
@@ -36,12 +35,13 @@ public class AttendanceLog extends FXModel {
     }
 
     // Gatters and Setters
-    public AttendanceRecord getLog_ID() {
+
+    public int getLogID() {
         return this.logIDProperty().get();
     }
 
-    public void setLog_ID(AttendanceRecord log_ID) {
-        logIDProperty().set(log_ID);
+    public void setLogID(int logID) {
+        logIDProperty().set(logID);
     }
 
     public int getMonth() {
@@ -70,7 +70,7 @@ public class AttendanceLog extends FXModel {
 
     @Override
     public FXModel clone() {
-        AttendanceLog attendanceLog = new AttendanceLog(this.log_ID.get(), this.getMonth(), this.getDay(),
+        AttendanceLog attendanceLog = new AttendanceLog(this.getLogID(), this.getMonth(), this.getDay(),
                 this.getYear());
         return attendanceLog;
     }
@@ -78,7 +78,7 @@ public class AttendanceLog extends FXModel {
     @Override
     public void copy(FXModel arg0) {
         AttendanceLog c = (AttendanceLog) arg0;
-        setLog_ID(c.getLog_ID());
+        setLogID(c.getLogID());
         setMonth(c.getMonth());
         setDay(c.getDay());
         setYear(c.getYear());

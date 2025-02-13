@@ -7,25 +7,37 @@ import dev.sol.core.properties.beans.FXStringProperty;
 
 public class Address extends FXModel {
 
-    private FXObjectProperty<Student> student_ID;
+    private FXObjectProperty<Student> studentID;
+    private FXIntegerProperty addressID;
     private FXStringProperty city;
     private FXStringProperty municipality;
     private FXStringProperty street;
     private FXStringProperty barangay;
-    private FXIntegerProperty ZIP_code;
+    private FXIntegerProperty zipCode;
 
-    public Address(Student student_ID, String city, String municipality, String street, String barangay, int ZIP_code) {
-        this.student_ID = new FXObjectProperty<Student>(student_ID);
+    public Address(Student studentID,
+            int addressID,
+            String city,
+            String municipality,
+            String street,
+            String barangay,
+            int zipCode) {
+        this.studentID = new FXObjectProperty<Student>(studentID);
+        this.addressID = new FXIntegerProperty(addressID);
         this.city = new FXStringProperty(city);
         this.municipality = new FXStringProperty(municipality);
         this.street = new FXStringProperty(street);
         this.barangay = new FXStringProperty(barangay);
-        this.ZIP_code = new FXIntegerProperty(ZIP_code);
+        this.zipCode = new FXIntegerProperty(zipCode);
     }
 
     // Property
     public FXObjectProperty<Student> studentIDProperty() {
-        return this.student_ID;
+        return this.studentID;
+    }
+
+    public FXIntegerProperty addressIDProperty() {
+        return this.addressID;
     }
 
     public FXStringProperty cityProperty() {
@@ -44,17 +56,25 @@ public class Address extends FXModel {
         return this.barangay;
     }
 
-    public FXIntegerProperty ZIP_codeProperty() {
-        return this.ZIP_code;
+    public FXIntegerProperty ZipCodeProperty() {
+        return this.zipCode;
     }
 
     // Gatters and Setters
-    public int getStudent_ID() {
-        return this.studentIDProperty().get().getStudentID();
+    public Student getStudentID() {
+        return this.studentIDProperty().get();
     }
 
-    public void setStudent_ID(int student_ID) {
-        studentIDProperty().get().setStudentID(student_ID);
+    public void setStudentID(Student student_ID) {
+        studentIDProperty().set(student_ID);
+    }
+
+    public int getAddressID() {
+        return this.addressIDProperty().get();
+    }
+
+    public void setAddressID(int addressID) {
+        addressIDProperty().set(addressID);
     }
 
     public String getCity() {
@@ -89,31 +109,35 @@ public class Address extends FXModel {
         barangayProperty().set(barangay);
     }
 
-    public int getZIP_Code() {
-        return this.ZIP_codeProperty().get();
+    public int getZipCode() {
+        return this.ZipCodeProperty().get();
     }
 
-    public void setZIP_Code(int ZIP_code) {
-        ZIP_codeProperty().set(ZIP_code);
+    public void setZipCode(int ZIP_code) {
+        ZipCodeProperty().set(ZIP_code);
     }
 
     @Override
     public FXModel clone() {
-        Address address = new Address(this.student_ID.get(), this.cityProperty().get(),
-                this.municipalityProperty().get(),
-                this.streetProperty().get(), this.barangayProperty().get(), this.ZIP_codeProperty().get());
+        Address address = new Address(getStudentID(),
+                getAddressID(),
+                getCity(),
+                getMunicipality(),
+                getStreet(),
+                getBarangay(),
+                getZipCode());
         return address;
     }
 
     @Override
     public void copy(FXModel arg0) {
         Address c = (Address) arg0;
-        setStudent_ID(c.getStudent_ID());
+        setStudentID(c.getStudentID());
         setCity(c.getCity());
         setMunipality(c.getMunicipality());
         setStreet(c.getStreet());
         setBarangay(c.getBarangay());
-        setZIP_Code(c.getZIP_Code());
+        setZipCode(c.getZipCode());
     }
 
 }

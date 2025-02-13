@@ -2,22 +2,24 @@ package dev.finalproject.models;
 
 import dev.sol.core.application.FXModel;
 import dev.sol.core.properties.beans.FXIntegerProperty;
+import dev.sol.core.properties.beans.FXObjectProperty;
 
 public class AttendanceRecord extends FXModel {
 
     private FXIntegerProperty recordID;
-    private FXIntegerProperty logID;
-    private FXIntegerProperty studentID;
+    private FXObjectProperty<AttendanceLog> logID;
+    private FXObjectProperty<Student> studentID;
     private FXIntegerProperty timeInAM;
     private FXIntegerProperty timeInPM;
     private FXIntegerProperty timeOutAM;
     private FXIntegerProperty timeOutPM;
 
-    public AttendanceRecord(int recordID, int logID, int studentID, int timeInAM, int timeInPM, int timeOutAM,
+    public AttendanceRecord(int recordID, AttendanceLog logID, Student studentID, int timeInAM, int timeInPM,
+            int timeOutAM,
             int timeOutPM) {
         this.recordID = new FXIntegerProperty(recordID);
-        this.logID = new FXIntegerProperty(logID);
-        this.studentID = new FXIntegerProperty(studentID);
+        this.logID = new FXObjectProperty<AttendanceLog>(logID);
+        this.studentID = new FXObjectProperty<Student>(studentID);
         this.timeInAM = new FXIntegerProperty(timeInAM);
         this.timeInPM = new FXIntegerProperty(timeInPM);
         this.timeOutAM = new FXIntegerProperty(timeOutAM);
@@ -29,11 +31,11 @@ public class AttendanceRecord extends FXModel {
         return recordID;
     }
 
-    public FXIntegerProperty logIDProperty() {
+    public FXObjectProperty<AttendanceLog> logIDProperty() {
         return logID;
     }
 
-    public FXIntegerProperty studentIDProperty() {
+    public FXObjectProperty<Student> studentIDProperty() {
         return studentID;
     }
 
@@ -58,11 +60,11 @@ public class AttendanceRecord extends FXModel {
         return recordID.get();
     }
 
-    public int getLogID() {
+    public AttendanceLog getLogID() {
         return logID.get();
     }
 
-    public int getStudentID() {
+    public Student getStudentID() {
         return studentID.get();
     }
 
@@ -87,11 +89,11 @@ public class AttendanceRecord extends FXModel {
         this.recordID.set(recordID);
     }
 
-    public void setLogID(int logID) {
+    public void setLogID(AttendanceLog logID) {
         this.logID.set(logID);
     }
 
-    public void setStudentID(int studentID) {
+    public void setStudentID(Student studentID) {
         this.studentID.set(studentID);
     }
 
@@ -113,8 +115,13 @@ public class AttendanceRecord extends FXModel {
 
     @Override
     public FXModel clone() {
-        return new AttendanceRecord(getRecordID(), getLogID(), getStudentID(), getTimeInAM(), getTimeInPM(),
-                getTimeOutAM(), getTimeOutPM());
+        return new AttendanceRecord(getRecordID(),
+                getLogID(),
+                getStudentID(),
+                getTimeInAM(),
+                getTimeInPM(),
+                getTimeOutAM(),
+                getTimeOutPM());
     }
 
     @Override

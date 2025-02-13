@@ -21,9 +21,18 @@ public class Student extends FXModel {
     private FXDoubleProperty fare;
     private FXObjectProperty<Cluster> clusterID;
 
-    public Student(String studentID, String firstName, String middleName, String lastName, String nameExtension,
-            String email, String status, int contact, Date dateOfBirth, double fare, Cluster clusterID) {
-        this.studentID = new FXIntegerProperty(Integer.parseInt(studentID));
+    public Student(int studentID,
+            String firstName,
+            String middleName,
+            String lastName,
+            String nameExtension,
+            String email,
+            String status,
+            int contact,
+            Date dateOfBirth,
+            double fare,
+            Cluster clusterID) {
+        this.studentID = new FXIntegerProperty(studentID);
         this.firstName = new FXStringProperty(firstName);
         this.middleName = new FXStringProperty(middleName);
         this.lastName = new FXStringProperty(lastName);
@@ -171,14 +180,17 @@ public class Student extends FXModel {
 
     @Override
     public FXModel clone() {
-        Student student = new Student(getEmail(),
+        Student student = new Student(getStudentID(),
                 getFirstName(),
                 getMiddleName(),
                 getLastName(),
                 getNameExtension(),
-                getEmail(), getStatus(),
-                getContact(), getDateOfBirth(),
-                getFare(), getClusterID());
+                getEmail(),
+                getStatus(),
+                getContact(),
+                getDateOfBirth(),
+                getFare(),
+                getClusterID());
 
         return student;
 
