@@ -12,13 +12,14 @@ import dev.sol.db.DBService;
 import dev.sol.db.DBType;
 
 public class ClusterDAO {
-    public static final String TABLE = "student";
+    public static final String TABLE = "cluster";
     public static final DBService DB = App.DB_SMS;
 
     public static Cluster data(CachedRowSet crs) {
         try {
-            int id = crs.getInt("ClusterID");
-            String clusterName = crs.getString("ClusterName");
+            int id = crs.getInt("clusterID");
+            String clusterName = crs.getString("clusterName");
+            
             return new Cluster(id, clusterName);
 
         } catch (Exception e) {
@@ -31,8 +32,8 @@ public class ClusterDAO {
     private static DBParam[] paramList(Cluster cluster) {
         List<DBParam> paramList = new LinkedList<>();
 
-        paramList.add(new DBParam(DBType.TEXT, "ClusterName", cluster.getClusterName()));
-        paramList.add(new DBParam(DBType.NUMERIC, "ClusterID", cluster.getClusterID()));
+        paramList.add(new DBParam(DBType.NUMERIC, "clusterID", cluster.getClusterID()));
+        paramList.add(new DBParam(DBType.TEXT, "clusterName", cluster.getClusterName()));
 
         return paramList.toArray(new DBParam[0]);
     }
@@ -58,12 +59,12 @@ public class ClusterDAO {
     }
 
     public static void delete(Cluster cluster) {
-        DB.delete(TABLE, new DBParam(DBType.NUMERIC, "ClusterID", cluster.getClusterID()));
+        DB.delete(TABLE, new DBParam(DBType.NUMERIC, "clusterID", cluster.getClusterID()));
     }
 
     public static void update(Cluster cluster) {
 
-        DB.update(TABLE, new DBParam(DBType.NUMERIC, "ClusterID",
+        DB.update(TABLE, new DBParam(DBType.NUMERIC, "clusterID",
                 cluster.getClusterID()), paramList(cluster));
 
     }

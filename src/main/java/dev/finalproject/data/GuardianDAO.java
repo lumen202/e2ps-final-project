@@ -22,7 +22,7 @@ public class GuardianDAO {
             String firstName = crs.getString("firstName");
             String lastName = crs.getString("lastName");
             String middleName = crs.getString("middleName");
-            int contactNumber = crs.getInt("contactNumber");
+            int contactNumber = crs.getInt("contactInfo");
             String relationship = crs.getString("relationship");
             return new Guardian(guardianID,
                     firstName,

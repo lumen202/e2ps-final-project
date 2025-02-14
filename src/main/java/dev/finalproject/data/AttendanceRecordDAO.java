@@ -15,17 +15,22 @@ import javafx.collections.ObservableList;
 public class AttendanceRecordDAO {
     public static final String TABLE = "attendance_record";
     public static final DBService DB = App.DB_SMS;
-    public static final ObservableList<Student> STUDENT_LIST = App.COLLECTIONS_REGISTRY.getList("STUDENT");
-    public static final ObservableList<AttendanceLog> LOG_LIST = App.COLLECTIONS_REGISTRY.getList("ATTENDANCE_LOG");
+
+    private static ObservableList<Student> STUDENT_LIST;
+    private static ObservableList<AttendanceLog> LOG_LIST;
+
+    public static void initialize(ObservableList<Student> studentList, ObservableList<AttendanceLog> logList) {
+        STUDENT_LIST = studentList;
+        LOG_LIST = logList;
+    }
 
     public static AttendanceRecord data(CachedRowSet crs) {
         try {
-
             int recordID = crs.getInt("record_id");
             AttendanceLog logID = LOG_LIST.stream()
                     .filter(log -> {
                         try {
-                            return log.getLogID() == (crs.getInt("logID"));
+                            return log.getLogID() == (crs.getInt("log_id"));
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
@@ -34,7 +39,7 @@ public class AttendanceRecordDAO {
             Student studentID = STUDENT_LIST.stream()
                     .filter(student -> {
                         try {
-                            return student.getStudentID() == (crs.getInt("studentID"));
+                            return student.getStudentID() == (crs.getInt("student_id"));
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
@@ -64,8 +69,8 @@ public class AttendanceRecordDAO {
     private static DBParam[] paramList(AttendanceRecord record) {
         List<DBParam> paramList = new LinkedList<>();
 
-        paramList.add(new DBParam(DBType.NUMERIC, "logID", record.getLogID().getLogID()));
-        paramList.add(new DBParam(DBType.NUMERIC, "studentID", record.getStudentID().getStudentID()));
+        paramList.add(new DBParam(DBType.NUMERIC, "log_id", record.getLogID().getLogID()));
+        paramList.add(new DBParam(DBType.NUMERIC, "student_id", record.getStudentID().getStudentID()));
         paramList.add(new DBParam(DBType.NUMERIC, "time_in_am", record.getTimeInAM()));
         paramList.add(new DBParam(DBType.NUMERIC, "time_out_am", record.getTimeOutAM()));
         paramList.add(new DBParam(DBType.NUMERIC, "time_in_pm", record.getTimeInPM()));

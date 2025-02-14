@@ -16,9 +16,11 @@ module dev.finalproject {
     requires javafx.base;
 
     opens dev.finalproject to javafx.fxml;
+    opens dev.finalproject.app to javafx.fxml;
 
     exports dev.finalproject;
     exports dev.finalproject.models;
     exports dev.finalproject.data;
+    exports dev.finalproject.app;
 
 }

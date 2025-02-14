@@ -14,10 +14,14 @@ import dev.sol.db.DBType;
 import javafx.collections.ObservableList;
 
 public class AddressDAO {
-    public static final String TABLE = "accounts";
+    public static final String TABLE = "address";
     public static final DBService DB = App.DB_SMS;
 
-    public static final ObservableList<Student> STUDENT_LIST = App.COLLECTIONS_REGISTRY.getList("STUDENT");
+    private static ObservableList<Student> STUDENT_LIST;
+
+    public static void initialize(ObservableList<Student> studentList) {
+        STUDENT_LIST = studentList;
+    }
 
     public static Address data(CachedRowSet crs) {
         try {
@@ -56,7 +60,7 @@ public class AddressDAO {
     private static DBParam[] paramList(Address address) {
         List<DBParam> paramList = new LinkedList<>();
 
-        paramList.add(new DBParam(DBType.NUMERIC, "studentID", address.getStudentID().getStudentID()));
+        paramList.add(new DBParam(DBType.NUMERIC, "studentID", address.getStudentID()));
         paramList.add(new DBParam(DBType.NUMERIC, "addressID", address.getAddressID()));
         paramList.add(new DBParam(DBType.TEXT, "city", address.getCity()));
         paramList.add(new DBParam(DBType.TEXT, "municipality", address.getMunicipality()));

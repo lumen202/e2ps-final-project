@@ -31,11 +31,9 @@ public class Address extends FXModel {
         this.zipCode = new FXIntegerProperty(zipCode);
     }
 
-    // Property
     public FXObjectProperty<Student> studentIDProperty() {
         return this.studentID;
     }
-
     public FXIntegerProperty addressIDProperty() {
         return this.addressID;
     }
@@ -60,7 +58,8 @@ public class Address extends FXModel {
         return this.zipCode;
     }
 
-    // Gatters and Setters
+    // Getters and Setters
+
     public Student getStudentID() {
         return this.studentIDProperty().get();
     }
