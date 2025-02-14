@@ -19,7 +19,11 @@ public class StudentDAO {
     public static final String TABLE = "student";
     public static final DBService DB = App.DB_SMS;
 
-    private static final ObservableList<Cluster> CLUSTER_LIST = App.COLLECTIONS_REGISTRY.getList("CLUSTER");
+    private static ObservableList<Cluster> CLUSTER_LIST;
+
+    public static void initialize(ObservableList<Cluster> clusterList) {
+        CLUSTER_LIST = clusterList;
+    }
 
     public static Student data(CachedRowSet crs) {
 
