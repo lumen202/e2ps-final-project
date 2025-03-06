@@ -16,10 +16,11 @@ public class Student extends FXModel {
     private FXStringProperty nameExtension;
     private FXStringProperty email;
     private FXStringProperty status;
-    private FXIntegerProperty contact;
+    private FXStringProperty contact;
     private FXObjectProperty<Date> dateOfBirth;
     private FXDoubleProperty fare;
     private FXObjectProperty<Cluster> clusterID;
+    private FXObjectProperty<SchoolYear> yearID;
 
     public Student(int studentID,
             String firstName,
@@ -28,10 +29,11 @@ public class Student extends FXModel {
             String nameExtension,
             String email,
             String status,
-            int contact,
+            String contact,
             Date dateOfBirth,
             double fare,
-            Cluster clusterID) {
+            Cluster clusterID,
+            SchoolYear yearID) {
         this.studentID = new FXIntegerProperty(studentID);
         this.firstName = new FXStringProperty(firstName);
         this.middleName = new FXStringProperty(middleName);
@@ -39,10 +41,11 @@ public class Student extends FXModel {
         this.nameExtension = new FXStringProperty(nameExtension);
         this.email = new FXStringProperty(email);
         this.status = new FXStringProperty(status);
-        this.contact = new FXIntegerProperty(contact);
+        this.contact = new FXStringProperty(contact);
         this.dateOfBirth = new FXObjectProperty<Date>(dateOfBirth);
         this.fare = new FXDoubleProperty(fare);
         this.clusterID = new FXObjectProperty<Cluster>(clusterID);
+        this.yearID = new FXObjectProperty<SchoolYear>(yearID);
 
     }
 
@@ -130,15 +133,15 @@ public class Student extends FXModel {
         statusProperty().set(status);
     }
 
-    public FXIntegerProperty contactProperty() {
+    public FXStringProperty contactProperty() {
         return this.contact;
     }
 
-    public int getContact() {
+    public String getContact() {
         return this.contactProperty().get();
     }
 
-    public void setContact(int contact) {
+    public void setContact(String contact) {
         contactProperty().set(contact);
     }
 
@@ -178,6 +181,22 @@ public class Student extends FXModel {
         clusterIDProperty().set(clusterID);
     }
 
+    public FXObjectProperty<SchoolYear> yearIDProperty() {
+        return this.yearID;
+    }
+
+    public SchoolYear getYearID() {
+        return this.yearIDProperty().get();
+    }
+
+    public void setYearID(SchoolYear yearID) {
+        yearIDProperty().set(yearID);
+    }
+
+    public String getFullName(){
+        return getFirstName() + " " + getMiddleName() + " " + getLastName() + " " + getNameExtension();
+    }
+
     @Override
     public FXModel clone() {
         Student student = new Student(getStudentID(),
@@ -190,7 +209,8 @@ public class Student extends FXModel {
                 getContact(),
                 getDateOfBirth(),
                 getFare(),
-                getClusterID());
+                getClusterID(),
+                getYearID());
 
         return student;
 
@@ -210,6 +230,7 @@ public class Student extends FXModel {
         setDateOfBirth(c.getDateOfBirth());
         setFare(c.getFare());
         setClusterID(c.getClusterID());
+        setYearID(c.getYearID());
 
     }
 

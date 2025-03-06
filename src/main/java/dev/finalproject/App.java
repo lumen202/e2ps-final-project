@@ -6,6 +6,7 @@ import dev.finalproject.data.AttendanceLogDAO;
 import dev.finalproject.data.AttendanceRecordDAO;
 import dev.finalproject.data.ClusterDAO;
 import dev.finalproject.data.GuardianDAO;
+import dev.finalproject.data.SchoolYearDAO;
 import dev.finalproject.data.StudentDAO;
 import dev.finalproject.data.StudentGuardianDAO;
 import dev.sol.core.application.FXApplication;
@@ -37,31 +38,52 @@ public class App extends FXApplication {
         }
 
         public void initialize_dataset() {
-                COLLECTIONS_REGISTRY.register("CLUSTER",
-                                FXCollections.observableArrayList(ClusterDAO.getClusterList()));
+                try {
+                        // Initialize basic collections first
+                        COLLECTIONS_REGISTRY.register("CLUSTER",
+                                        FXCollections.observableArrayList(ClusterDAO.getClusterList()));
 
-                StudentDAO.initialize(COLLECTIONS_REGISTRY.getList("CLUSTER"));
-                COLLECTIONS_REGISTRY.register("STUDENT",
-                                FXCollections.observableArrayList(StudentDAO.getStudentList()));
+                        COLLECTIONS_REGISTRY.register("SCHOOL_YEAR",
+                                        FXCollections.observableArrayList(SchoolYearDAO.getSchoolYearList()));
 
-                COLLECTIONS_REGISTRY.register("GUARDIAN",
-                                FXCollections.observableArrayList(GuardianDAO.getGuardianList()));
+                        COLLECTIONS_REGISTRY.register("GUARDIAN",
+                                        FXCollections.observableArrayList(GuardianDAO.getGuardianList()));
 
-                COLLECTIONS_REGISTRY.register("STUDENT_GUARDIAN",
-                                FXCollections.observableArrayList(StudentGuardianDAO.getStudentGuardianList()));
+                        // Initialize student-related collections
+                        StudentDAO.initialize(
+                                        COLLECTIONS_REGISTRY.getList("CLUSTER"),
+                                        COLLECTIONS_REGISTRY.getList("SCHOOL_YEAR"));
+                        COLLECTIONS_REGISTRY.register("STUDENT",
+                                        FXCollections.observableArrayList(StudentDAO.getStudentList()));
 
-                COLLECTIONS_REGISTRY.register("ATTENDANCE_LOG",
-                                FXCollections.observableArrayList(AttendanceLogDAO.getLogList()));
+                        COLLECTIONS_REGISTRY.register("STUDENT_GUARDIAN",
+                                        FXCollections.observableArrayList(StudentGuardianDAO.getStudentGuardianList()));
 
-                AddressDAO.initialize(COLLECTIONS_REGISTRY.getList("STUDENT"));
-                COLLECTIONS_REGISTRY.register("ADDRESS",
-                                FXCollections.observableArrayList(AddressDAO.getAddressesList()));
+                        // Initialize address after student
+                        AddressDAO.initialize(COLLECTIONS_REGISTRY.getList("STUDENT"));
+                        COLLECTIONS_REGISTRY.register("ADDRESS",
+                                        FXCollections.observableArrayList(AddressDAO.getAddressesList()));
 
-                AttendanceRecordDAO.initialize(
-                                COLLECTIONS_REGISTRY.getList("STUDENT"),
-                                COLLECTIONS_REGISTRY.getList("ATTENDANCE_LOG"));
-                COLLECTIONS_REGISTRY.register("ATTENDANCE_RECORD",
-                                FXCollections.observableArrayList(AttendanceRecordDAO.getAttendanceRecordList()));
+                        // Initialize attendance records
+                        COLLECTIONS_REGISTRY.register("ATTENDANCE_RECORD",
+                                        FXCollections.observableArrayList(AttendanceRecordDAO.getRecordList()));
+
+                        // Initialize attendance logs last, after both student and attendance records are ready
+                        COLLECTIONS_REGISTRY.register("ATTENDANCE_LOG",
+                                        FXCollections.observableArrayList()); // Create empty list first
+
+                        AttendanceLogDAO.initialize(
+                                        COLLECTIONS_REGISTRY.getList("STUDENT"),
+                                        COLLECTIONS_REGISTRY.getList("ATTENDANCE_RECORD")); // Changed from ATTENDANCE_LOG to ATTENDANCE_RECORD
+
+                        // Now populate the attendance log list
+                        COLLECTIONS_REGISTRY.getList("ATTENDANCE_LOG").addAll(AttendanceLogDAO.getAttendanceLogList());
+
+                } catch (Exception e) {
+                        System.err.println("Error initializing datasets: " + e.getMessage());
+                        e.printStackTrace();
+                        throw new RuntimeException("Failed to initialize application data", e);
+                }
         }
 
         private void initialize_application() {

@@ -11,20 +11,20 @@ public class Guardian extends FXModel {
     private FXStringProperty middleName;
     private FXStringProperty lastName;
     private FXStringProperty relationship;
-    private FXIntegerProperty contact;
+    private FXStringProperty contact;
 
     public Guardian(int gurdianID,
             String firstName,
             String middleName,
             String lastName,
             String relationship,
-            int contact) {
+            String contact) {
         this.gurdianID = new FXIntegerProperty(gurdianID);
         this.firstName = new FXStringProperty(firstName);
         this.middleName = new FXStringProperty(middleName);
         this.lastName = new FXStringProperty(lastName);
         this.relationship = new FXStringProperty(relationship);
-        this.contact = new FXIntegerProperty(contact);
+        this.contact = new FXStringProperty(contact);
 
     }
 
@@ -88,22 +88,26 @@ public class Guardian extends FXModel {
         relationshipProperty().set(relationship);
     }
 
-    public FXIntegerProperty contactProperty() {
+    public FXStringProperty contactProperty() {
         return this.contact;
     }
 
-    public int getContact() {
+    public String getContact() {
         return this.contactProperty().get();
     }
 
-    public void setContact(int contact) {
+    public void setContact(String contact) {
         contactProperty().set(contact);
+    }
+
+    public String getGuardianFullName() {
+        return getFirstName() + " " + getMiddleName() + " " + getLastName();
     }
 
     @Override
     public FXModel clone() {
         Guardian guardian = new Guardian(getGuardianID(), getFirstName(), getMiddleName(), getLastName(),
-                getRelationship(), getGuardianID());
+                getRelationship(), getContact());
         return guardian;
     }
 

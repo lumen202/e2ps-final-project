@@ -10,6 +10,7 @@ import javax.sql.rowset.CachedRowSet;
 import dev.finalproject.App;
 import dev.finalproject.models.Cluster;
 import dev.finalproject.models.Student;
+import dev.finalproject.models.SchoolYear;
 import dev.sol.db.DBParam;
 import dev.sol.db.DBService;
 import dev.sol.db.DBType;
@@ -20,9 +21,11 @@ public class StudentDAO {
     public static final DBService DB = App.DB_SMS;
 
     private static ObservableList<Cluster> CLUSTER_LIST;
+    private static ObservableList<SchoolYear> SCHOOL_YEAR_LIST;
 
-    public static void initialize(ObservableList<Cluster> clusterList) {
+    public static void initialize(ObservableList<Cluster> clusterList, ObservableList<SchoolYear> schoolYearList) {
         CLUSTER_LIST = clusterList;
+        SCHOOL_YEAR_LIST = schoolYearList;
     }
 
     public static Student data(CachedRowSet crs) {
@@ -39,6 +42,16 @@ public class StudentDAO {
                         return false;
                     }).findFirst().get();
 
+            SchoolYear yearID = SCHOOL_YEAR_LIST.stream()
+                    .filter(year -> {
+                        try {
+                            return year.getYearID() == (crs.getInt("yearID"));
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
+                        return false;
+                    }).findFirst().get();
+
             int id = crs.getInt("StudentID");
             String firstName = crs.getString("FirstName");
             String middleName = crs.getString("MiddleName");
@@ -46,8 +59,8 @@ public class StudentDAO {
             String nameExtension = crs.getString("NameExtension");
             String email = crs.getString("Email");
             String status = crs.getString("Status");
-            int contact = crs.getInt("ContactInfo");
-            Date dateOfBirth = crs.getDate("DateOfBirth");
+            String contact = crs.getString("ContactInfo");
+            Date dateOfBirth = crs.getDate("DateofBirth");
             double fare = crs.getDouble("Fare");
 
             return new Student(id,
@@ -60,7 +73,8 @@ public class StudentDAO {
                     contact,
                     dateOfBirth,
                     fare,
-                    clusterID);
+                    clusterID,
+                    yearID);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -78,10 +92,11 @@ public class StudentDAO {
         paramList.add(new DBParam(DBType.TEXT, "NameExtension", student.getNameExtension()));
         paramList.add(new DBParam(DBType.TEXT, "Email", student.getEmail()));
         paramList.add(new DBParam(DBType.TEXT, "Status", student.getStatus()));
-        paramList.add(new DBParam(DBType.NUMERIC, "ContactInfo", student.getContact()));
-        paramList.add(new DBParam(DBType.DATE, "DateOfBirth", student.getDateOfBirth()));
+        paramList.add(new DBParam(DBType.TEXT, "ContactInfo", student.getContact()));
+        paramList.add(new DBParam(DBType.DATE, "DateofBirth", student.getDateOfBirth()));
         paramList.add(new DBParam(DBType.NUMERIC, "Fare", student.getFare()));
         paramList.add(new DBParam(DBType.NUMERIC, "ClusterID", student.getClusterID()));
+        paramList.add(new DBParam(DBType.NUMERIC, "yearID", student.getYearID().getYearID()));
 
         return paramList.toArray(new DBParam[0]);
     }

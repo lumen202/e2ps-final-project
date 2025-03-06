@@ -2,87 +2,133 @@ package dev.finalproject.models;
 
 import dev.sol.core.application.FXModel;
 import dev.sol.core.properties.beans.FXIntegerProperty;
+import dev.sol.core.properties.beans.FXObjectProperty;
 
 public class AttendanceLog extends FXModel {
 
     private FXIntegerProperty logID;
-    private FXIntegerProperty month;
-    private FXIntegerProperty day;
-    private FXIntegerProperty year;
+    private FXObjectProperty<AttendanceRecord> recorID;
+    private FXObjectProperty<Student> studentID;
+    private FXIntegerProperty timeInAM;
+    private FXIntegerProperty timeInPM;
+    private FXIntegerProperty timeOutAM;
+    private FXIntegerProperty timeOutPM;
 
-    public AttendanceLog(int logID, int month, int day, int year) {
+    public AttendanceLog(int logID, AttendanceRecord recordID, Student studentID, int timeInAM, int timeInPM,
+            int timeOutAM,
+            int timeOutPM) {
         this.logID = new FXIntegerProperty(logID);
-        this.month = new FXIntegerProperty(month);
-        this.day = new FXIntegerProperty(day);
-        this.year = new FXIntegerProperty(year);
+        this.recorID = new FXObjectProperty<AttendanceRecord>(recordID);
+        this.studentID = new FXObjectProperty<Student>(studentID);
+        this.timeInAM = new FXIntegerProperty(timeInAM);
+        this.timeInPM = new FXIntegerProperty(timeInPM);
+        this.timeOutAM = new FXIntegerProperty(timeOutAM);
+        this.timeOutPM = new FXIntegerProperty(timeOutPM);
     }
 
-    // Property
+    // Property Methods
     public FXIntegerProperty logIDProperty() {
-        return this.logID;
+        return logID;
     }
 
-    public FXIntegerProperty monthProperty() {
-        return this.month;
+    public FXObjectProperty<AttendanceRecord> recordIDProperty() {
+        return recorID;
     }
 
-    public FXIntegerProperty dayProperty() {
-        return this.day;
+    public FXObjectProperty<Student> studentIDProperty() {
+        return studentID;
     }
 
-    public FXIntegerProperty yearProperty() {
-        return this.year;
+    public FXIntegerProperty timeInAMProperty() {
+        return timeInAM;
     }
 
-    // Gatters and Setters
+    public FXIntegerProperty timeInPMProperty() {
+        return timeInPM;
+    }
 
+    public FXIntegerProperty timeOutAMProperty() {
+        return timeOutAM;
+    }
+
+    public FXIntegerProperty timeOutPMProperty() {
+        return timeOutPM;
+    }
+
+    // Getters
     public int getLogID() {
-        return this.logIDProperty().get();
+        return logID.get();
     }
 
+    public AttendanceRecord getRecordID() {
+        return recorID.get();
+    }
+
+    public Student getStudentID() {
+        return studentID.get();
+    }
+
+    public int getTimeInAM() {
+        return timeInAM.get();
+    }
+
+    public int getTimeInPM() {
+        return timeInPM.get();
+    }
+
+    public int getTimeOutAM() {
+        return timeOutAM.get();
+    }
+
+    public int getTimeOutPM() {
+        return timeOutPM.get();
+    }
+
+    // Setters
     public void setLogID(int logID) {
-        logIDProperty().set(logID);
+        this.logID.set(logID);
     }
 
-    public int getMonth() {
-        return this.monthProperty().get();
+    public void setrecordID(AttendanceRecord recordID) {
+        this.recorID.set(recordID);
     }
 
-    public void setMonth(int month) {
-        monthProperty().set(month);
+    public void setStudentID(Student studentID) {
+        this.studentID.set(studentID);
     }
 
-    public int getDay() {
-        return this.dayProperty().get();
+    public void setTimeInAM(int timeInAM) {
+        this.timeInAM.set(timeInAM);
     }
 
-    public void setDay(int day) {
-        dayProperty().set(day);
+    public void setTimeInPM(int timeInPM) {
+        this.timeInPM.set(timeInPM);
     }
 
-    public int getYear() {
-        return this.yearProperty().get();
+    public void setTimeOutAM(int timeOutAM) {
+        this.timeOutAM.set(timeOutAM);
     }
 
-    public void setYear(int year) {
-        yearProperty().set(year);
+    public void setTimeOutPM(int timeOutPM) {
+        this.timeOutPM.set(timeOutPM);
     }
 
     @Override
     public FXModel clone() {
-        AttendanceLog attendanceLog = new AttendanceLog(this.getLogID(), this.getMonth(), this.getDay(),
-                this.getYear());
-        return attendanceLog;
+        return new AttendanceLog(getLogID(), getRecordID(), getStudentID(), getTimeInAM(), getTimeInPM(),
+                getTimeOutAM(), getTimeOutPM());
     }
 
     @Override
-    public void copy(FXModel arg0) {
-        AttendanceLog c = (AttendanceLog) arg0;
-        setLogID(c.getLogID());
-        setMonth(c.getMonth());
-        setDay(c.getDay());
-        setYear(c.getYear());
-
+    public void copy(FXModel model) {
+        if (model instanceof AttendanceLog other) {
+            setLogID(getLogID());
+            setrecordID(getRecordID());
+            setStudentID(other.getStudentID());
+            setTimeInAM(other.getTimeInAM());
+            setTimeInPM(other.getTimeInPM());
+            setTimeOutAM(other.getTimeOutAM());
+            setTimeOutPM(other.getTimeOutPM());
+        }
     }
-
 }

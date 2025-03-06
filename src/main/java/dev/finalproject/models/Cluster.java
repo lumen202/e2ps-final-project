@@ -30,7 +30,6 @@ public class Cluster extends FXModel {
         clusterIDProperty().set(cluster_ID);
     }
 
-
     public void setClusterName(String clusterName) {
         clusterNameProperty().set(clusterName);
     }
@@ -39,7 +38,6 @@ public class Cluster extends FXModel {
         return clusterNameProperty().get();
     }
 
-    
     @Override
     public FXModel clone() {
         Cluster cluster = new Cluster(this.getClusterID(), this.clusterNameProperty().get());

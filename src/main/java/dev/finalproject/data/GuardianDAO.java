@@ -22,7 +22,7 @@ public class GuardianDAO {
             String firstName = crs.getString("firstName");
             String lastName = crs.getString("lastName");
             String middleName = crs.getString("middleName");
-            int contactNumber = crs.getInt("contactInfo");
+            String contactNumber = crs.getString("contactInfo");
             String relationship = crs.getString("relationship");
             return new Guardian(guardianID,
                     firstName,
@@ -43,7 +43,7 @@ public class GuardianDAO {
         paramList.add(new DBParam(DBType.TEXT, "firstName", guardian.getFirstName()));
         paramList.add(new DBParam(DBType.TEXT, "lastName", guardian.getLastName()));
         paramList.add(new DBParam(DBType.TEXT, "middleName", guardian.getMiddleName()));
-        paramList.add(new DBParam(DBType.NUMERIC, "contactNumber", guardian.getContact()));
+        paramList.add(new DBParam(DBType.TEXT, "contactInfo", guardian.getContact())); // Changed from contactNumber
         paramList.add(new DBParam(DBType.TEXT, "relationship", guardian.getRelationship()));
 
         return paramList.toArray(new DBParam[0]);
