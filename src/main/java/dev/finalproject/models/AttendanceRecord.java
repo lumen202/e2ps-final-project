@@ -68,6 +68,10 @@ public class AttendanceRecord extends FXModel {
         yearProperty().set(year);
     }
 
+    public String getDate() {
+        return String.format("%02d/%02d/%04d", getMonth(), getDay(), getYear());
+    }
+
     @Override
     public FXModel clone() {
         AttendanceRecord attendanceRecord = new AttendanceRecord(this.getRecordID(), this.getMonth(), this.getDay(),

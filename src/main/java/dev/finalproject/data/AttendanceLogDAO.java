@@ -84,11 +84,11 @@ public class AttendanceLogDAO {
         // Use the record's unique identifier from the associated AttendanceRecord
         paramList.add(new DBParam(DBType.NUMERIC, "recordID", record.getRecordID().getRecordID()));
         paramList.add(new DBParam(DBType.NUMERIC, "student_id", record.getStudentID().getStudentID()));
-        
+
         // Ensure time values are mapped correctly to DB columns
-        paramList.add(new DBParam(DBType.NUMERIC, "time_in_am", record.getTimeInAM()));   // Morning in
+        paramList.add(new DBParam(DBType.NUMERIC, "time_in_am", record.getTimeInAM())); // Morning in
         paramList.add(new DBParam(DBType.NUMERIC, "time_out_am", record.getTimeOutAM())); // Morning out
-        paramList.add(new DBParam(DBType.NUMERIC, "time_in_pm", record.getTimeInPM()));   // Afternoon in
+        paramList.add(new DBParam(DBType.NUMERIC, "time_in_pm", record.getTimeInPM())); // Afternoon in
         paramList.add(new DBParam(DBType.NUMERIC, "time_out_pm", record.getTimeOutPM())); // Afternoon out
 
         return paramList.toArray(new DBParam[0]);
@@ -123,4 +123,20 @@ public class AttendanceLogDAO {
         // Use logID to identify which row to update
         DB.update(TABLE, new DBParam(DBType.NUMERIC, "logID", record.getLogID()), paramList(record));
     }
+
+    // Add this method to AttendanceLogDAO if it doesn't exist
+    public static AttendanceLog findOrCreateLog(Student student, AttendanceRecord record) {
+        AttendanceLog log = getAttendanceLogList().stream()
+                .filter(l -> l.getStudentID().equals(student) && l.getRecordID().equals(record))
+                .findFirst()
+                .orElse(null);
+
+        if (log == null) {
+            log = new AttendanceLog(student, record);
+            insert(log);
+        }
+
+        return log;
+    }
+    
 }

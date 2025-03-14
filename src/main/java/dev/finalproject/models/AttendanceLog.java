@@ -26,6 +26,16 @@ public class AttendanceLog extends FXModel {
         this.timeOutPM = new FXIntegerProperty(timeOutPM);
     }
 
+    public AttendanceLog(Student studentID, AttendanceRecord recordID) {
+        this.logID = new FXIntegerProperty(0); // Default to 0, will be set by database
+        this.recorID = new FXObjectProperty<AttendanceRecord>(recordID);
+        this.studentID = new FXObjectProperty<Student>(studentID);
+        this.timeInAM = new FXIntegerProperty(0);
+        this.timeInPM = new FXIntegerProperty(0);
+        this.timeOutAM = new FXIntegerProperty(0);
+        this.timeOutPM = new FXIntegerProperty(0);
+    }
+
     // Property Methods
     public FXIntegerProperty logIDProperty() {
         return logID;

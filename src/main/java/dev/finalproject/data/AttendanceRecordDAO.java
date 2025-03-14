@@ -70,4 +70,19 @@ public class AttendanceRecordDAO {
                                                                                                                  // recordID
     }
 
+    // Add this method to AttendanceRecordDAO if it doesn't exist
+    public static AttendanceRecord findOrCreateRecord(int year, int month, int day) {
+        AttendanceRecord record = getRecordList().stream()
+                .filter(r -> r.getYear() == year && r.getMonth() == month && r.getDay() == day)
+                .findFirst()
+                .orElse(null);
+
+        if (record == null) {
+            record = new AttendanceRecord(0, year, month, day); // ID will be generated
+            insert(record);
+        }
+
+        return record;
+    }
+
 }
