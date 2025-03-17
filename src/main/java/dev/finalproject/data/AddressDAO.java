@@ -59,8 +59,8 @@ public class AddressDAO {
 
     private static DBParam[] paramList(Address address) {
         List<DBParam> paramList = new LinkedList<>();
-
-        paramList.add(new DBParam(DBType.NUMERIC, "studentID", address.getStudentID()));
+        int studentID  = address.getStudentID().getStudentID();
+        paramList.add(new DBParam(DBType.NUMERIC, "studentID", studentID));
         paramList.add(new DBParam(DBType.NUMERIC, "addressID", address.getAddressID()));
         paramList.add(new DBParam(DBType.TEXT, "city", address.getCity()));
         paramList.add(new DBParam(DBType.TEXT, "municipality", address.getMunicipality()));
@@ -98,11 +98,9 @@ public class AddressDAO {
     public static void update(Address address) {
 
         DBParam[] params = paramList(address);
-
-        for (int i = 0; i <= 6; i++) {
             DB.update(TABLE, new DBParam(DBType.TEXT, "addressID",
-                    address.getAddressID()), params[i]);
-        }
+                    address.getAddressID()), params);
+       
 
     }
 }

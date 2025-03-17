@@ -17,6 +17,7 @@ import dev.sol.db.DBType;
 import javafx.collections.ObservableList;
 
 public class StudentDAO {
+
     public static final String TABLE = "student";
     public static final DBService DB = App.DB_SMS;
 
@@ -94,8 +95,9 @@ public class StudentDAO {
         paramList.add(new DBParam(DBType.TEXT, "Status", student.getStatus()));
         paramList.add(new DBParam(DBType.TEXT, "ContactInfo", student.getContact()));
         paramList.add(new DBParam(DBType.DATE, "DateofBirth", student.getDateOfBirth()));
-        paramList.add(new DBParam(DBType.NUMERIC, "Fare", student.getFare()));
-        paramList.add(new DBParam(DBType.NUMERIC, "ClusterID", student.getClusterID()));
+        paramList.add(new DBParam(DBType.DECIMAL, "Fare", student.getFare()));
+        int clusterID = student.clusterIDProperty().getValue().getClusterID();
+        paramList.add(new DBParam(DBType.NUMERIC, "ClusterID", clusterID));
         paramList.add(new DBParam(DBType.NUMERIC, "yearID", student.getYearID().getYearID()));
 
         return paramList.toArray(new DBParam[0]);
@@ -128,11 +130,8 @@ public class StudentDAO {
     public static void update(Student student) {
 
         DBParam[] params = paramList(student);
-
-        for (int i = 0; i <= 10; i++) {
-            DB.update(TABLE, new DBParam(DBType.NUMERIC, "StudentID",
-                    student.getStudentID()), params[i]);
-        }
+        DB.update(TABLE, new DBParam(DBType.NUMERIC, "StudentID",
+                student.getStudentID()), params);
 
     }
 }

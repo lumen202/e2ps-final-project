@@ -80,9 +80,8 @@ public class SchoolYearDAO {
     public static void update(SchoolYear schoolYear) {
         DBParam[] params = paramList(schoolYear);
 
-        for (int i = 0; i < params.length; i++) {
             DB.update(TABLE, new DBParam(DBType.NUMERIC, "yearID",   // Changed from year_id
-                    schoolYear.getYearID()), params[i]);
-        }
+                    schoolYear.getYearID()), params);
+        
     }
 }
