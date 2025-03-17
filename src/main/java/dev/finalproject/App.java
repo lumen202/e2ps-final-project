@@ -19,13 +19,16 @@ import dev.sol.db.DBService;
 import javafx.collections.FXCollections;
 
 public class App extends FXApplication {
+
+        public static final String remoteHost = "jdbc:mysql://192.168.254.108:3306/student_management_system_db?user=root&password=admin&allowPublicKeyRetrieval=true&useSSL=false";
+        public static final String localHost = "jdbc:mysql://localhost:3306/student_management_system_db?user=root&password=admin&allowPublicKeyRetrieval=true&useSSL=false";
+
         public static final FXControllerRegister CONTROLLER_REGISTRY = FXControllerRegister.INSTANCE;
         public static final FXCollectionsRegister COLLECTIONS_REGISTRY = FXCollectionsRegister.INSTANCE;
         public static final FXNodeRegister NODE_REGISTER = FXNodeRegister.INSTANCE;
 
         public static final DBService DB_SMS = DBService.INSTANCE
-                        .initialize("jdbc:mysql://192.168.254.108:3306/student_management_system_db?user=root&password=admin&allowPublicKeyRetrieval=true&useSSL=false");
-
+                        .initialize(localHost);
         @Override
         public void initialize() throws Exception {
                 setTitle("Student Management System");
@@ -33,7 +36,7 @@ public class App extends FXApplication {
                 applicationStage.setResizable(false);
                 applicationStage.getOnCloseRequest();
 
-                initialize_dataset();
+                // initialize_dataset();
                 initialize_application();
         }
 
