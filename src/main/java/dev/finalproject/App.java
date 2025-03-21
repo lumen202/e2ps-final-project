@@ -28,7 +28,8 @@ public class App extends FXApplication {
         public static final FXNodeRegister NODE_REGISTER = FXNodeRegister.INSTANCE;
 
         public static final DBService DB_SMS = DBService.INSTANCE
-                        .initialize(localHost);
+    .initialize("jdbc:mysql://192.168.254.108:3306/student_management_system_db?user=remote_user&allowPublicKeyRetrieval=true&useSSL=false");
+
         @Override
         public void initialize() throws Exception {
                 setTitle("Student Management System");

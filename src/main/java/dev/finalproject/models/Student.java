@@ -3,6 +3,7 @@ package dev.finalproject.models;
 import java.util.Date;
 
 import dev.sol.core.application.FXModel;
+import dev.sol.core.properties.beans.FXBooleanProperty;
 import dev.sol.core.properties.beans.FXDoubleProperty;
 import dev.sol.core.properties.beans.FXIntegerProperty;
 import dev.sol.core.properties.beans.FXObjectProperty;
@@ -21,6 +22,7 @@ public class Student extends FXModel {
     private FXDoubleProperty fare;
     private FXObjectProperty<Cluster> clusterID;
     private FXObjectProperty<SchoolYear> yearID;
+    private FXIntegerProperty archieved;
 
     public Student(int studentID,
             String firstName,
@@ -33,7 +35,8 @@ public class Student extends FXModel {
             Date dateOfBirth,
             double fare,
             Cluster clusterID,
-            SchoolYear yearID) {
+            SchoolYear yearID,
+            int archieved) {
         this.studentID = new FXIntegerProperty(studentID);
         this.firstName = new FXStringProperty(firstName);
         this.middleName = new FXStringProperty(middleName);
@@ -46,6 +49,7 @@ public class Student extends FXModel {
         this.fare = new FXDoubleProperty(fare);
         this.clusterID = new FXObjectProperty<Cluster>(clusterID);
         this.yearID = new FXObjectProperty<SchoolYear>(yearID);
+        this.archieved = new FXIntegerProperty(archieved);
 
     }
 
@@ -193,7 +197,19 @@ public class Student extends FXModel {
         yearIDProperty().set(yearID);
     }
 
-    public String getFullName(){
+    public FXIntegerProperty archievedProperty() {
+        return this.archieved;
+    }
+
+    public Integer getArchieved() {
+        return this.archievedProperty().get();
+    }
+
+    public void setArchieved(int archieved) {
+        archievedProperty().set(archieved);
+    }
+
+    public String getFullName() {
         return getFirstName() + " " + getMiddleName() + " " + getLastName() + " " + getNameExtension();
     }
 
@@ -210,7 +226,8 @@ public class Student extends FXModel {
                 getDateOfBirth(),
                 getFare(),
                 getClusterID(),
-                getYearID());
+                getYearID(),
+                getArchieved());
 
         return student;
 
@@ -231,6 +248,7 @@ public class Student extends FXModel {
         setFare(c.getFare());
         setClusterID(c.getClusterID());
         setYearID(c.getYearID());
+        setArchieved(c.getArchieved());
 
     }
 

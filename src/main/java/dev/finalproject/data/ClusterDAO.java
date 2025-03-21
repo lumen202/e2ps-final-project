@@ -23,7 +23,7 @@ public class ClusterDAO {
             return new Cluster(id, clusterName);
 
         } catch (Exception e) {
-            e.printStackTrace();`
+            e.printStackTrace();
         }
         return null;
 

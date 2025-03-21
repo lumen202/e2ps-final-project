@@ -63,6 +63,7 @@ public class StudentDAO {
             String contact = crs.getString("ContactInfo");
             Date dateOfBirth = crs.getDate("DateofBirth");
             double fare = crs.getDouble("Fare");
+            int archieved = crs.getInt("Archieved");
 
             return new Student(id,
                     firstName,
@@ -75,7 +76,8 @@ public class StudentDAO {
                     dateOfBirth,
                     fare,
                     clusterID,
-                    yearID);
+                    yearID,
+                    archieved);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -87,6 +89,7 @@ public class StudentDAO {
     private static DBParam[] paramList(Student student) {
         List<DBParam> paramList = new LinkedList<>();
 
+        paramList.add(new DBParam(DBType.NUMERIC, "StudentID", student.getStudentID()));
         paramList.add(new DBParam(DBType.TEXT, "FirstName", student.getFirstName()));
         paramList.add(new DBParam(DBType.TEXT, "MiddleName", student.getMiddleName()));
         paramList.add(new DBParam(DBType.TEXT, "LastName", student.getLastName()));
@@ -99,6 +102,7 @@ public class StudentDAO {
         int clusterID = student.clusterIDProperty().getValue().getClusterID();
         paramList.add(new DBParam(DBType.NUMERIC, "ClusterID", clusterID));
         paramList.add(new DBParam(DBType.NUMERIC, "yearID", student.getYearID().getYearID()));
+        paramList.add(new DBParam(DBType.NUMERIC, "Archieved", student.getArchieved()));
 
         return paramList.toArray(new DBParam[0]);
     }
