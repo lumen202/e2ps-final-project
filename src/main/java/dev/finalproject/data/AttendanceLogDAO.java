@@ -2,7 +2,9 @@ package dev.finalproject.data;
 
 import java.util.LinkedList;
 import java.util.List;
+
 import javax.sql.rowset.CachedRowSet;
+
 import dev.finalproject.App;
 import dev.finalproject.models.AttendanceLog;
 import dev.finalproject.models.AttendanceRecord;
@@ -62,7 +64,7 @@ public class AttendanceLogDAO {
             // time_out_pm -> timeOutPM (Afternoon time out)
             int timeInAM = crs.getInt("time_in_am");
             int timeOutAM = crs.getInt("time_out_am");
-            int timeInPM = crs.getInt("time_in_pm");
+             int timeInPM = crs.getInt("time_in_pm");
             int timeOutPM = crs.getInt("time_out_pm");
 
             System.out.println("AttendanceLogDAO.data() - logID: " + logID + ", recordID: " + recordID + ", student: "
@@ -84,7 +86,6 @@ public class AttendanceLogDAO {
         // Use the record's unique identifier from the associated AttendanceRecord
         paramList.add(new DBParam(DBType.NUMERIC, "recordID", record.getRecordID().getRecordID()));
         paramList.add(new DBParam(DBType.NUMERIC, "student_id", record.getStudentID().getStudentID()));
-
         // Ensure time values are mapped correctly to DB columns
         paramList.add(new DBParam(DBType.NUMERIC, "time_in_am", record.getTimeInAM())); // Morning in
         paramList.add(new DBParam(DBType.NUMERIC, "time_out_am", record.getTimeOutAM())); // Morning out

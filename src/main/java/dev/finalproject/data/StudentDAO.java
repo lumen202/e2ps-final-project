@@ -9,8 +9,8 @@ import javax.sql.rowset.CachedRowSet;
 
 import dev.finalproject.App;
 import dev.finalproject.models.Cluster;
-import dev.finalproject.models.Student;
 import dev.finalproject.models.SchoolYear;
+import dev.finalproject.models.Student;
 import dev.sol.db.DBParam;
 import dev.sol.db.DBService;
 import dev.sol.db.DBType;

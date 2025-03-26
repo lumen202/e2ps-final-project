@@ -20,15 +20,16 @@ import javafx.collections.FXCollections;
 
 public class App extends FXApplication {
 
-        public static final String remoteHost = "jdbc:mysql://192.168.254.108:3306/student_management_system_db?user=root&password=admin&allowPublicKeyRetrieval=true&useSSL=false";
-        public static final String localHost = "jdbc:mysql://localhost:3306/student_management_system_db?user=root&password=admin&allowPublicKeyRetrieval=true&useSSL=false";
+        public static final String REMOTE_HOST = "jdbc:mysql://192.168.254.108:3306/student_management_system_db?user=root&password=admin&allowPublicKeyRetrieval=true&useSSL=false";
+        public static final String LOCAL_HOST = "jdbc:mysql://localhost:3306/student_management_system_db?user=root&password=admin&allowPublicKeyRetrieval=true&useSSL=false";
+        public static final String LAB_HOST = "jdbc:mysql://192.168.254.108:3306/student_management_system_db?user=remote_user&allowPublicKeyRetrieval=true&useSSL=false";
 
         public static final FXControllerRegister CONTROLLER_REGISTRY = FXControllerRegister.INSTANCE;
         public static final FXCollectionsRegister COLLECTIONS_REGISTRY = FXCollectionsRegister.INSTANCE;
         public static final FXNodeRegister NODE_REGISTER = FXNodeRegister.INSTANCE;
 
         public static final DBService DB_SMS = DBService.INSTANCE
-    .initialize("jdbc:mysql://192.168.254.108:3306/student_management_system_db?user=remote_user&allowPublicKeyRetrieval=true&useSSL=false");
+    .initialize(LOCAL_HOST);
 
         @Override
         public void initialize() throws Exception {
