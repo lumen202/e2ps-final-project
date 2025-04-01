@@ -14,6 +14,7 @@ import dev.sol.db.DBService;
 import dev.sol.db.DBType;
 
 public class AttendanceLogDAO {
+
     private static final String TABLE = "attendance_log";
     public static final DBService DB = App.DB_SMS;
 
@@ -40,8 +41,9 @@ public class AttendanceLogDAO {
                         return false;
                     }).findFirst().orElse(null);
 
-            if (record == null)
+            if (record == null) {
                 return null;
+            }
 
             Student student = STUDENT_LIST.stream()
                     .filter(s -> {
@@ -53,8 +55,9 @@ public class AttendanceLogDAO {
                         return false;
                     }).findFirst().orElse(null);
 
-            if (student == null)
+            if (student == null) {
                 return null;
+            }
 
             // Map the time values correctly:
             // DB -> Model mapping:
@@ -64,14 +67,14 @@ public class AttendanceLogDAO {
             // time_out_pm -> timeOutPM (Afternoon time out)
             int timeInAM = crs.getInt("time_in_am");
             int timeOutAM = crs.getInt("time_out_am");
-             int timeInPM = crs.getInt("time_in_pm");
+            int timeInPM = crs.getInt("time_in_pm");
             int timeOutPM = crs.getInt("time_out_pm");
 
             System.out.println("AttendanceLogDAO.data() - logID: " + logID + ", recordID: " + recordID + ", student: "
                     + student.getStudentID() + ", timeInAM: " + timeInAM + ", timeOutAM: " + timeOutAM + ", timeInPM: "
                     + timeInPM + ", timeOutPM: " + timeOutPM);
 
-            return new AttendanceLog(logID, record, student, timeInAM, timeOutAM, timeInPM, timeOutPM);
+            return new AttendanceLog(logID, record, student, timeInAM, timeInPM, timeOutAM, timeOutPM);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -139,5 +142,5 @@ public class AttendanceLogDAO {
 
         return log;
     }
-    
+
 }

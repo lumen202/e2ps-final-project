@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 26, 2025 at 07:36 AM
+-- Generation Time: Apr 01, 2025 at 06:54 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -43,15 +43,25 @@ CREATE TABLE `address` (
 
 INSERT INTO `address` (`studentID`, `addressID`, `city`, `municipality`, `street`, `barangay`, `zipCode`) VALUES
 (1, 1, 'Albuera', 'Leyte', 'Soob', 'Poblacion', 0),
-(2, 2, 'Leyte', '', 'Setio.wangag', 'Albuera', 0),
-(3, 3, '', '', 'Albuera Leyte', '', 0),
-(4, 4, 'Leyte', '', 'Brgy.Igang', 'Baybay City', 0),
-(5, 5, 'Leyte', '', 'Mabini St.', 'Eastern Brgy. Hilongos', 0),
-(6, 6, '', '', 'Sitio Inanggihan Brgy Union', 'Mahaplag Leyte', 0),
+(2, 2, 'Albuera', 'Leyte', '', 'Setio.wangag', 0),
+(3, 3, 'Albuera', 'Leyte', 'Sanico', 'Laping', 0),
+(4, 4, 'Baybay City', 'Leyte', '', 'Brgy.Igang', 0),
+(5, 5, 'Hilongos', 'Leyte', 'Mabini St.', 'Eastern Brgy.', 0),
+(6, 6, 'Mahaplag', 'Leyte', 'Sitio Inanggihan', 'Brgy Union', 0),
 (7, 7, '', '', 'BRGY. SAN ISIDRO MAHAPLAG LEYTE', '', 0),
-(8, 8, 'leyte', '', 'Sitio tomoy brgy', 'poblacion mahaplag', 0),
-(9, 9, '', '', 'Natubgan kananga Leyte', '', 0),
-(10, 10, '', '', 'Barangay Agutayan Hilongos Leyte', '', 0);
+(8, 8, 'poblacion mahaplag', 'leyte', '', 'Sitio tomoy brgy', 0),
+(9, 9, 'kananga', 'Leyte', '', 'Natubgan', 0),
+(10, 10, 'Hilongos', 'Leyte', '', 'Barangay Agutayan', 0),
+(11, 11, 'Albuera', 'Leyte', 'Soob', 'Poblacion', 0),
+(12, 12, 'Albuera', 'Leyte', '', 'Setio.wangag', 0),
+(13, 13, 'Albuera', 'Leyte', 'Sanico', 'Laping', 0),
+(14, 14, 'Baybay City', 'Leyte', '', 'Brgy.Igang', 0),
+(15, 15, 'Hilongos', 'Leyte', 'Mabini St.', 'Eastern Brgy.', 0),
+(16, 16, 'Mahaplag', 'Leyte', 'Sitio Inanggihan', 'Brgy Union', 0),
+(17, 17, '', '', 'BRGY. SAN ISIDRO MAHAPLAG LEYTE', '', 0),
+(18, 18, 'poblacion mahaplag', 'leyte', '', 'Sitio tomoy brgy', 0),
+(19, 19, 'kananga', 'Leyte', '', 'Natubgan', 0),
+(20, 20, 'Hilongos', 'Leyte', '', 'Barangay Agutayan', 0);
 
 -- --------------------------------------------------------
 
@@ -75,25 +85,7 @@ CREATE TABLE `attendance_log` (
 
 INSERT INTO `attendance_log` (`logID`, `recordID`, `student_id`, `time_in_am`, `time_out_am`, `time_in_pm`, `time_out_pm`) VALUES
 (1, 1, 1, 730, 1130, 1300, 1630),
-(2, 2, 1, 730, 1130, 1300, 1630),
-(3, 3, 1, 0, 0, 0, 0),
-(5, 5, 1, 730, 1130, 1300, 1630),
-(6, 6, 1, 730, 1130, 1300, 1630),
-(7, 7, 1, 730, 1130, 1300, 1630),
-(8, 8, 1, 730, 1130, 1300, 1630),
-(9, 9, 1, 730, 1130, 1300, 1630),
-(10, 10, 1, 730, 1130, 1300, 1630),
-(11, 1, 2, 730, 1130, 1300, 1630),
-(13, 1, 3, 3000, 3000, 3000, 3000),
-(14, 2, 3, 3000, 3000, 3000, 3000),
-(16, 3, 3, 730, 1130, 1300, 1630),
-(17, 2, 4, 0, 0, 0, 0),
-(18, 1, 4, 730, 1130, 1300, 1630),
-(19, 2, 2, 730, 1130, 0, 0),
-(20, 12, 1, 730, 1130, 1300, 1630),
-(21, 13, 1, 730, 1130, 1300, 1630),
-(22, 14, 1, 730, 1130, 1300, 1630),
-(23, 15, 1, 730, 1130, 1300, 1630);
+(2, 2, 1, 730, 1130, 1300, 1630);
 
 -- --------------------------------------------------------
 
@@ -114,19 +106,7 @@ CREATE TABLE `attendance_record` (
 
 INSERT INTO `attendance_record` (`recordID`, `Month`, `Day`, `Year`) VALUES
 (1, 3, 3, 2025),
-(2, 3, 4, 2025),
-(3, 3, 5, 2025),
-(5, 3, 7, 2025),
-(6, 3, 10, 2025),
-(7, 3, 11, 2025),
-(8, 3, 17, 2025),
-(9, 3, 13, 2025),
-(10, 3, 19, 2025),
-(11, 3, 6, 2025),
-(12, 7, 2, 2024),
-(13, 9, 2, 2024),
-(14, 9, 3, 2024),
-(15, 9, 4, 2024);
+(2, 3, 4, 2025);
 
 -- --------------------------------------------------------
 
@@ -144,81 +124,56 @@ CREATE TABLE `cluster` (
 --
 
 INSERT INTO `cluster` (`clusterID`, `clusterName`) VALUES
-(0, 'Default'),
-(1, 'Hilongos'),
-(2, 'Default'),
-(3, 'Default'),
-(4, 'Default'),
-(5, 'Default'),
-(6, 'Default'),
-(7, 'Default'),
-(8, 'Default'),
-(9, 'Default'),
-(10, 'Default'),
-(11, 'Default'),
-(12, 'Default'),
-(13, 'Default'),
-(14, 'Default'),
-(15, 'Default'),
-(16, 'Default'),
-(17, 'Default'),
-(18, 'Default'),
-(19, 'Default'),
-(20, 'Default'),
-(21, 'Default'),
-(22, 'Default'),
-(23, 'Default'),
-(24, 'Default'),
-(25, 'Default'),
-(26, 'Default'),
-(27, 'Default'),
-(28, 'Default'),
-(29, 'Default'),
-(30, 'Default'),
-(31, 'Default'),
-(32, 'Default'),
-(33, 'Default'),
-(34, 'Default'),
-(35, 'Default'),
-(36, 'Default'),
-(37, 'Default'),
-(38, 'Default'),
-(39, 'Default'),
-(40, 'Default'),
-(41, 'Default'),
-(42, 'Default'),
-(43, 'Default'),
-(44, 'Default'),
-(45, 'Albuera'),
-(46, 'Albuera'),
-(47, 'Albuera'),
-(48, 'Baybay'),
-(49, 'Hilongos'),
-(50, 'Mahaplag'),
-(51, 'Mahaplag'),
-(52, 'Mahaplag'),
-(53, 'Kananga'),
-(54, 'Baybay'),
-(55, 'Albuera'),
-(56, 'Albuera'),
-(57, 'Albuera'),
-(58, 'Baybay'),
-(59, 'Hilongos'),
-(60, 'Mahaplag'),
-(61, 'Mahaplag'),
-(62, 'Mahaplag'),
-(63, 'Kananga'),
-(64, 'Baybay'),
-(65, 'Albuera'),
-(66, 'Albuera'),
-(67, 'Albuera'),
-(68, 'Baybay'),
-(69, 'Hilongos'),
-(70, 'Mahaplag'),
-(71, 'Mahaplag'),
-(72, 'Mahaplag'),
-(73, 'Kananga'),
-(74, 'Baybay');
+(1, 'Albuera'),
+(2, 'Albuera'),
+(3, 'Albuera'),
+(4, 'Baybay'),
+(5, 'Hilongos'),
+(6, 'Mahaplag'),
+(7, 'Mahaplag'),
+(8, 'Mahaplag'),
+(9, 'Kananga'),
+(10, 'Baybay'),
+(11, 'Albuera'),
+(12, 'Albuera'),
+(13, 'Albuera'),
+(14, 'Baybay'),
+(15, 'Hilongos'),
+(16, 'Mahaplag'),
+(17, 'Mahaplag'),
+(18, 'Mahaplag'),
+(19, 'Kananga'),
+(20, 'Baybay'),
+(21, 'Albuera'),
+(22, 'Albuera'),
+(23, 'Albuera'),
+(24, 'Baybay'),
+(25, 'Hilongos'),
+(26, 'Mahaplag'),
+(27, 'Mahaplag'),
+(28, 'Mahaplag'),
+(29, 'Kananga'),
+(30, 'Baybay'),
+(31, 'Albuera'),
+(32, 'Albuera'),
+(33, 'Albuera'),
+(34, 'Baybay'),
+(35, 'Hilongos'),
+(36, 'Mahaplag'),
+(37, 'Mahaplag'),
+(38, 'Mahaplag'),
+(39, 'Kananga'),
+(40, 'Baybay'),
+(41, 'Albuera'),
+(42, 'Albuera'),
+(43, 'Albuera'),
+(44, 'Baybay'),
+(45, 'Hilongos'),
+(46, 'Mahaplag'),
+(47, 'Mahaplag'),
+(48, 'Mahaplag'),
+(49, 'Kananga'),
+(50, 'Baybay');
 
 -- --------------------------------------------------------
 
@@ -242,7 +197,8 @@ CREATE TABLE `guardian` (
 INSERT INTO `guardian` (`guardianID`, `firstName`, `middleName`, `lastName`, `relationship`, `contactInfo`) VALUES
 (13, 'Michael', 'B.', 'Doe', 'Father', '998877665'),
 (16, 'Edna', 'Diniega', 'Rubillos', 'Mother', '123'),
-(17, '', '', '', '', '');
+(17, '', '', '', '', ''),
+(18, 'Jane', 'Doe', 'Dane', 'Mother', '092033312');
 
 -- --------------------------------------------------------
 
@@ -265,7 +221,8 @@ CREATE TABLE `school_year` (
 --
 
 INSERT INTO `school_year` (`yearID`, `year_start`, `year_end`, `month_start`, `monthEnd`, `day_start`, `day_end`) VALUES
-(1, 2024, 2025, 'August', 'June', 12, 27);
+(1, 2024, 2025, 'August', 'June', 12, 27),
+(2, 2025, 2026, 'SEPTEMBER', 'JUNE', 1, 30);
 
 -- --------------------------------------------------------
 
@@ -275,7 +232,7 @@ INSERT INTO `school_year` (`yearID`, `year_start`, `year_end`, `month_start`, `m
 
 CREATE TABLE `student` (
   `StudentID` int(11) NOT NULL,
-  `Archieved` int(11) NOT NULL,
+  `deleted` int(1) NOT NULL,
   `yearID` int(11) NOT NULL,
   `FirstName` varchar(20) NOT NULL,
   `LastName` varchar(20) NOT NULL,
@@ -293,17 +250,29 @@ CREATE TABLE `student` (
 -- Dumping data for table `student`
 --
 
-INSERT INTO `student` (`StudentID`, `Archieved`, `yearID`, `FirstName`, `LastName`, `MiddleName`, `NameExtension`, `Email`, `Status`, `ContactInfo`, `DateofBirth`, `Fare`, `ClusterID`) VALUES
-(1, 0, 1, 'Daniel', 'Dela Torre', 'Estremos', '', 'delatorredaniel2006@gmail.com', 'Active', '09935927942', '2025-03-18', 50, 65),
-(2, 0, 1, 'Jay Anthony', 'De Villena', 'Almosa', '', 'godsanthony15@gmail.com', 'Active', '09563796024', '2025-03-18', 100, 66),
-(3, 0, 1, 'Shallei Elizabeth', 'Laping', 'Sanico', '', 'shalleielizabethlaping06@gmail', 'Active', '09938790415', '2025-03-18', 0, 67),
-(4, 0, 1, 'Reymark', 'Fernandez', 'Caputol', '', 'reymarkfernandez71@gmail.com', 'Active', '09480266342', '2025-03-18', 0, 68),
-(5, 0, 1, 'Joshua', 'Diniega', 'Rubillos', '', 'jdiniega202@gmail.com', 'Active', '09208883990', '2025-03-18', 0, 69),
-(6, 0, 1, 'Roniljess', 'Matugas', 'Ereve', '', 'roniljessmatugas@gmail.com', 'Active', '09704525110', '2025-03-18', 0, 70),
-(7, 0, 1, 'MYRA', 'PADALAPAT', 'OLAYBAR', '', '121649100034@r8.deped.gov.ph', 'Active', '09208839244', '2025-03-18', 0, 71),
-(8, 0, 1, 'Marco', 'Dichon', 'Galagar', '', 'marcopain99@gmail.com', 'Active', '09471415988', '2025-03-18', 0, 72),
-(9, 0, 1, 'Cherry Anne', 'Erlandez', 'Zagado', '', 'cherryanneerlandez96@gmail.com', 'Active', '09269797129', '2025-03-18', 0, 73),
-(10, 0, 1, 'Vicente', 'Costado', 'Tahil', 'Jr', 'vicentecostadojr@gmail.com', 'Active', '09368248415', '2025-03-18', 0, 74);
+INSERT INTO `student` (`StudentID`, `deleted`, `yearID`, `FirstName`, `LastName`, `MiddleName`, `NameExtension`, `Email`, `Status`, `ContactInfo`, `DateofBirth`, `Fare`, `ClusterID`) VALUES
+(1, 0, 1, 'Daniel', 'Dela Torre', 'Estremos', '', 'delatorredaniel2006@gmail.com', 'Active', '09935927942', '2025-03-30', 201, 31),
+(2, 0, 1, 'Jay Anthony', 'De Villena', 'Almosa', '', 'godsanthony15@gmail.com', 'Active', '09563796024', '2025-03-30', 0, 32),
+(3, 0, 1, 'Shallei Elizabeth', 'Laping', 'Sanico', '', 'shalleielizabethlaping06@gmail', 'Active', '09938790415', '2025-03-30', 0, 33),
+(4, 0, 1, 'Reymark', 'Fernandez', 'Caputol', '', 'reymarkfernandez71@gmail.com', 'Active', '09480266342', '2025-03-30', 0, 34),
+(5, 0, 1, 'Joshua', 'Diniega', 'Rubillos', '', 'jdiniega202@gmail.com', 'Active', '09208883990', '2025-03-30', 0, 35),
+(6, 0, 1, 'Roniljess', 'Matugas', 'Ereve', '', 'roniljessmatugas@gmail.com', 'Active', '09704525110', '2025-03-30', 0, 36),
+(7, 0, 1, 'MYRA', 'PADALAPAT', 'OLAYBAR', '', '121649100034@r8.deped.gov.ph', 'Active', '09208839244', '2025-03-30', 0, 37),
+(8, 0, 1, 'Marco', 'Dichon', 'Galagar', '', 'marcopain99@gmail.com', 'Active', '09471415988', '2025-03-30', 0, 38),
+(9, 0, 1, 'Cherry Anne', 'Erlandez', 'Zagado', '', 'cherryanneerlandez96@gmail.com', 'Active', '09269797129', '2025-03-30', 0, 39),
+(10, 0, 1, 'Vicente', 'Costado', 'Tahil', 'Jr', 'vicentecostadojr@gmail.com', 'Active', '09368248415', '2025-03-30', 0, 40),
+(11, 0, 2, 'Daniel', 'Dela Torre', 'Estremos', '', 'delatorredaniel2006@gmail.com', 'Active', '09935927942', '2025-03-30', 0, 41),
+(12, 0, 2, 'Jay Anthony', 'De Villena', 'Almosa', '', 'godsanthony15@gmail.com', 'Active', '09563796024', '2025-03-30', 0, 42),
+(13, 0, 2, 'Shallei Elizabeth', 'Laping', 'Sanico', '', 'shalleielizabethlaping06@gmail', 'Active', '09938790415', '2025-03-30', 0, 43),
+(14, 0, 2, 'Reymark', 'Fernandez', 'Caputol', '', 'reymarkfernandez71@gmail.com', 'Active', '09480266342', '2025-03-30', 0, 44),
+(15, 0, 2, 'Joshua', 'Diniega', 'Rubillos', '', 'jdiniega202@gmail.com', 'Active', '09208883990', '2025-03-30', 0, 45),
+(16, 0, 2, 'Roniljess', 'Matugas', 'Ereve', '', 'roniljessmatugas@gmail.com', 'Active', '09704525110', '2025-03-30', 0, 46),
+(17, 0, 2, 'MYRA', 'PADALAPAT', 'OLAYBAR', '', '121649100034@r8.deped.gov.ph', 'Active', '09208839244', '2025-03-30', 0, 47),
+(18, 0, 2, 'Marco', 'Dichon', 'Galagar', '', 'marcopain99@gmail.com', 'Active', '09471415988', '2025-03-30', 0, 48),
+(19, 0, 2, 'Cherry Anne', 'Erlandez', 'Zagado', '', 'cherryanneerlandez96@gmail.com', 'Active', '09269797129', '2025-03-30', 0, 49),
+(20, 0, 2, 'Vicente', 'Costado', 'Tahil', 'Jr', 'vicentecostadojr@gmail.com', 'Active', '09368248415', '2025-03-30', 0, 50),
+(21, 0, 1, 'Jonh', 'Doe', 'Son', 'Sr.', 'jaskalas@gmail.com', 'Active', '091234', '2015-04-04', 23, 24),
+(22, 0, 1, 'Jonh', 'Doe', 'Son', 'Sr.', 'jaskalas@gmail.com', 'Active', '091234', '2015-04-04', 23, 24);
 
 -- --------------------------------------------------------
 
@@ -321,7 +290,7 @@ CREATE TABLE `student_guardian` (
 --
 
 INSERT INTO `student_guardian` (`studentID`, `guardianID`) VALUES
-(5, 16);
+(1, 18);
 
 --
 -- Indexes for dumped tables
@@ -331,6 +300,7 @@ INSERT INTO `student_guardian` (`studentID`, `guardianID`) VALUES
 -- Indexes for table `address`
 --
 ALTER TABLE `address`
+  ADD PRIMARY KEY (`addressID`),
   ADD KEY `Student_ID` (`studentID`);
 
 --
@@ -381,6 +351,52 @@ ALTER TABLE `student_guardian`
   ADD KEY `Guardian_ID` (`guardianID`);
 
 --
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `address`
+--
+ALTER TABLE `address`
+  MODIFY `addressID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+
+--
+-- AUTO_INCREMENT for table `attendance_log`
+--
+ALTER TABLE `attendance_log`
+  MODIFY `logID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
+
+--
+-- AUTO_INCREMENT for table `attendance_record`
+--
+ALTER TABLE `attendance_record`
+  MODIFY `recordID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=123;
+
+--
+-- AUTO_INCREMENT for table `cluster`
+--
+ALTER TABLE `cluster`
+  MODIFY `clusterID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+
+--
+-- AUTO_INCREMENT for table `guardian`
+--
+ALTER TABLE `guardian`
+  MODIFY `guardianID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+
+--
+-- AUTO_INCREMENT for table `school_year`
+--
+ALTER TABLE `school_year`
+  MODIFY `yearID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `student`
+--
+ALTER TABLE `student`
+  MODIFY `StudentID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+
+--
 -- Constraints for dumped tables
 --
 
@@ -401,7 +417,8 @@ ALTER TABLE `attendance_log`
 -- Constraints for table `student`
 --
 ALTER TABLE `student`
-  ADD CONSTRAINT `student_ibfk_1` FOREIGN KEY (`ClusterID`) REFERENCES `cluster` (`clusterID`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `student_ibfk_1` FOREIGN KEY (`ClusterID`) REFERENCES `cluster` (`clusterID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `student_ibfk_2` FOREIGN KEY (`yearID`) REFERENCES `school_year` (`yearID`);
 
 --
 -- Constraints for table `student_guardian`

@@ -22,7 +22,7 @@ public class Student extends FXModel {
     private FXDoubleProperty fare;
     private FXObjectProperty<Cluster> clusterID;
     private FXObjectProperty<SchoolYear> yearID;
-    private FXIntegerProperty archieved;
+    private FXIntegerProperty deleted;
 
     public Student(int studentID,
             String firstName,
@@ -36,7 +36,7 @@ public class Student extends FXModel {
             double fare,
             Cluster clusterID,
             SchoolYear yearID,
-            int archieved) {
+            int deleted) {
         this.studentID = new FXIntegerProperty(studentID);
         this.firstName = new FXStringProperty(firstName);
         this.middleName = new FXStringProperty(middleName);
@@ -49,7 +49,7 @@ public class Student extends FXModel {
         this.fare = new FXDoubleProperty(fare);
         this.clusterID = new FXObjectProperty<Cluster>(clusterID);
         this.yearID = new FXObjectProperty<SchoolYear>(yearID);
-        this.archieved = new FXIntegerProperty(archieved);
+        this.deleted = new FXIntegerProperty(deleted);
 
     }
 
@@ -197,16 +197,16 @@ public class Student extends FXModel {
         yearIDProperty().set(yearID);
     }
 
-    public FXIntegerProperty archievedProperty() {
-        return this.archieved;
+    public FXIntegerProperty deletedProperty() {
+        return this.deleted;
     }
 
-    public Integer getArchieved() {
-        return this.archievedProperty().get();
+    public Integer isDeleted() {
+        return this.deletedProperty().get();
     }
 
-    public void setArchieved(int archieved) {
-        archievedProperty().set(archieved);
+    public void setDeleted(int deleted) {
+       deletedProperty().set(deleted);
     }
 
     public String getFullName() {
@@ -227,7 +227,7 @@ public class Student extends FXModel {
                 getFare(),
                 getClusterID(),
                 getYearID(),
-                getArchieved());
+                isDeleted());
 
         return student;
 
@@ -248,7 +248,7 @@ public class Student extends FXModel {
         setFare(c.getFare());
         setClusterID(c.getClusterID());
         setYearID(c.getYearID());
-        setArchieved(c.getArchieved());
+        setDeleted(c.isDeleted());
 
     }
 

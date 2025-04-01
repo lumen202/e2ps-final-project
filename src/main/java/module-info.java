@@ -22,5 +22,6 @@ module dev.finalproject {
     exports dev.finalproject.models;
     exports dev.finalproject.data;
     exports dev.finalproject.app;
+    exports dev.finalproject.database;
 
 }

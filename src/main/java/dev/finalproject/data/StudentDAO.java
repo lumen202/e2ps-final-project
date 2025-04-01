@@ -63,7 +63,7 @@ public class StudentDAO {
             String contact = crs.getString("ContactInfo");
             Date dateOfBirth = crs.getDate("DateofBirth");
             double fare = crs.getDouble("Fare");
-            int archieved = crs.getInt("Archieved");
+            int deleted = crs.getInt("deleted");
 
             return new Student(id,
                     firstName,
@@ -77,7 +77,7 @@ public class StudentDAO {
                     fare,
                     clusterID,
                     yearID,
-                    archieved);
+                    deleted);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -102,7 +102,7 @@ public class StudentDAO {
         int clusterID = student.clusterIDProperty().getValue().getClusterID();
         paramList.add(new DBParam(DBType.NUMERIC, "ClusterID", clusterID));
         paramList.add(new DBParam(DBType.NUMERIC, "yearID", student.getYearID().getYearID()));
-        paramList.add(new DBParam(DBType.NUMERIC, "Archieved", student.getArchieved()));
+        paramList.add(new DBParam(DBType.NUMERIC, "deleted", student.isDeleted()));
 
         return paramList.toArray(new DBParam[0]);
     }
