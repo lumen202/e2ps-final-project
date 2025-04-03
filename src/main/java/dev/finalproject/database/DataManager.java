@@ -1,6 +1,5 @@
 package dev.finalproject.database;
 
-
 import dev.finalproject.data.AddressDAO;
 import dev.finalproject.data.AttendanceLogDAO;
 import dev.finalproject.data.AttendanceRecordDAO;
@@ -13,15 +12,18 @@ import dev.sol.core.registry.FXCollectionsRegister;
 import javafx.collections.FXCollections;
 
 /**
- * DataManager is a singleton responsible for initializing and managing
- * the dataset collections used throughout the application.
+ * DataManager is a singleton responsible for initializing and managing the
+ * dataset collections used throughout the application.
+ *
+ * In this version, we have removed any DAO.initialize() calls. Instead, the
+ * shared collections are directly rebuilt by fetching fresh data via DAO calls.
  */
 public final class DataManager {
 
     private static volatile DataManager instance;
     private final FXCollectionsRegister collectionsRegistry;
 
-    // Private constructor to enforce singleton
+    // Private constructor to enforce singleton usage.
     private DataManager() {
         this.collectionsRegistry = FXCollectionsRegister.INSTANCE;
     }
@@ -52,11 +54,12 @@ public final class DataManager {
     }
 
     /**
-     * Initializes the data collections by loading data from the database.
+     * Initializes or refreshes the data collections by loading fresh data from
+     * the database and re-registering new ObservableList instances.
      */
     public void initializeData() {
         try {
-            // Initialize basic collections first
+            // Create new ObservableList instances for each collection from fresh DAO calls.
             collectionsRegistry.register("CLUSTER",
                     FXCollections.observableArrayList(ClusterDAO.getClusterList()));
 
@@ -66,40 +69,32 @@ public final class DataManager {
             collectionsRegistry.register("GUARDIAN",
                     FXCollections.observableArrayList(GuardianDAO.getGuardianList()));
 
-            // Initialize student-related collections
-            StudentDAO.initialize(
-                    collectionsRegistry.getList("CLUSTER"),
-                    collectionsRegistry.getList("SCHOOL_YEAR"));
             collectionsRegistry.register("STUDENT",
                     FXCollections.observableArrayList(StudentDAO.getStudentList()));
 
             collectionsRegistry.register("STUDENT_GUARDIAN",
                     FXCollections.observableArrayList(StudentGuardianDAO.getStudentGuardianList()));
 
-            // Initialize address after student
-            AddressDAO.initialize(collectionsRegistry.getList("STUDENT"));
             collectionsRegistry.register("ADDRESS",
                     FXCollections.observableArrayList(AddressDAO.getAddressesList()));
 
-            // Initialize attendance records
             collectionsRegistry.register("ATTENDANCE_RECORD",
                     FXCollections.observableArrayList(AttendanceRecordDAO.getRecordList()));
 
-            // Initialize attendance logs last, after both student and attendance records are ready
             collectionsRegistry.register("ATTENDANCE_LOG",
-                    FXCollections.observableArrayList()); // Create empty list first
-
-            AttendanceLogDAO.initialize(
-                    collectionsRegistry.getList("STUDENT"),
-                    collectionsRegistry.getList("ATTENDANCE_RECORD"));
-
-            // Populate the attendance log list
-            collectionsRegistry.getList("ATTENDANCE_LOG").addAll(AttendanceLogDAO.getAttendanceLogList());
+                    FXCollections.observableArrayList(AttendanceLogDAO.getAttendanceLogList()));
 
         } catch (Exception e) {
             System.err.println("Error initializing datasets: " + e.getMessage());
             e.printStackTrace();
             throw new RuntimeException("Failed to initialize application data", e);
         }
+    }
+
+    /**
+     * Refreshes all data by reloading from the database.
+     */
+    public void refreshData() {
+        initializeData();
     }
 }

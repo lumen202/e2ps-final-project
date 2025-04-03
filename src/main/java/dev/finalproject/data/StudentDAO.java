@@ -8,6 +8,7 @@ import java.util.List;
 import javax.sql.rowset.CachedRowSet;
 
 import dev.finalproject.App;
+import dev.finalproject.database.DataManager;
 import dev.finalproject.models.Cluster;
 import dev.finalproject.models.SchoolYear;
 import dev.finalproject.models.Student;
@@ -21,37 +22,39 @@ public class StudentDAO {
     public static final String TABLE = "student";
     public static final DBService DB = App.DB_SMS;
 
-    private static ObservableList<Cluster> CLUSTER_LIST;
-    private static ObservableList<SchoolYear> SCHOOL_YEAR_LIST;
-
-    public static void initialize(ObservableList<Cluster> clusterList, ObservableList<SchoolYear> schoolYearList) {
-        CLUSTER_LIST = clusterList;
-        SCHOOL_YEAR_LIST = schoolYearList;
-    }
-
     public static Student data(CachedRowSet crs) {
-
         try {
-
-            Cluster clusterID = CLUSTER_LIST.stream()
-                    .filter(cluster -> {
+            // Retrieve fresh cluster list from DataManager.
+            ObservableList<Cluster> clusters = DataManager.getInstance()
+                    .getCollectionsRegistry().getList("CLUSTER");
+            Cluster cluster = clusters.stream()
+                    .filter(c -> {
                         try {
-                            return cluster.getClusterID() == (crs.getInt("clusterID"));
+                            return c.getClusterID() == crs.getInt("clusterID");
                         } catch (SQLException e) {
                             e.printStackTrace();
                         }
                         return false;
-                    }).findFirst().get();
+                    }).findFirst().orElse(null);
+            if (cluster == null) {
+                return null;
+            }
 
-            SchoolYear yearID = SCHOOL_YEAR_LIST.stream()
-                    .filter(year -> {
+            // Retrieve fresh school year list from DataManager.
+            ObservableList<SchoolYear> schoolYears = DataManager.getInstance()
+                    .getCollectionsRegistry().getList("SCHOOL_YEAR");
+            SchoolYear year = schoolYears.stream()
+                    .filter(y -> {
                         try {
-                            return year.getYearID() == (crs.getInt("yearID"));
+                            return y.getYearID() == crs.getInt("yearID");
                         } catch (SQLException e) {
                             e.printStackTrace();
                         }
                         return false;
-                    }).findFirst().get();
+                    }).findFirst().orElse(null);
+            if (year == null) {
+                return null;
+            }
 
             int id = crs.getInt("StudentID");
             String firstName = crs.getString("FirstName");
@@ -65,25 +68,13 @@ public class StudentDAO {
             double fare = crs.getDouble("Fare");
             int deleted = crs.getInt("deleted");
 
-            return new Student(id,
-                    firstName,
-                    middleName,
-                    lastName,
-                    nameExtension,
-                    email,
-                    status,
-                    contact,
-                    dateOfBirth,
-                    fare,
-                    clusterID,
-                    yearID,
-                    deleted);
+            return new Student(id, firstName, middleName, lastName, nameExtension, email, status, contact,
+                    dateOfBirth, fare, cluster, year, deleted);
 
         } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
-
     }
 
     private static DBParam[] paramList(Student student) {
@@ -99,7 +90,7 @@ public class StudentDAO {
         paramList.add(new DBParam(DBType.TEXT, "ContactInfo", student.getContact()));
         paramList.add(new DBParam(DBType.DATE, "DateofBirth", student.getDateOfBirth()));
         paramList.add(new DBParam(DBType.DECIMAL, "Fare", student.getFare()));
-        int clusterID = student.clusterIDProperty().getValue().getClusterID();
+        int clusterID = student.getClusterID().getClusterID();
         paramList.add(new DBParam(DBType.NUMERIC, "ClusterID", clusterID));
         paramList.add(new DBParam(DBType.NUMERIC, "yearID", student.getYearID().getYearID()));
         paramList.add(new DBParam(DBType.NUMERIC, "deleted", student.isDeleted()));
@@ -132,10 +123,7 @@ public class StudentDAO {
     }
 
     public static void update(Student student) {
-
         DBParam[] params = paramList(student);
-        DB.update(TABLE, new DBParam(DBType.NUMERIC, "StudentID",
-                student.getStudentID()), params);
-
+        DB.update(TABLE, new DBParam(DBType.NUMERIC, "StudentID", student.getStudentID()), params);
     }
 }
