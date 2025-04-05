@@ -6,8 +6,10 @@ import dev.finalproject.data.AttendanceRecordDAO;
 import dev.finalproject.data.ClusterDAO;
 import dev.finalproject.data.GuardianDAO;
 import dev.finalproject.data.SchoolYearDAO;
+import dev.finalproject.data.SettingsDAO;
 import dev.finalproject.data.StudentDAO;
 import dev.finalproject.data.StudentGuardianDAO;
+import dev.finalproject.models.Settings;
 import dev.sol.core.registry.FXCollectionsRegister;
 import javafx.collections.FXCollections;
 
@@ -83,6 +85,9 @@ public final class DataManager {
 
             collectionsRegistry.register("ATTENDANCE_LOG",
                     FXCollections.observableArrayList(AttendanceLogDAO.getAttendanceLogList()));
+
+            collectionsRegistry.register("SETTINGS",
+                    FXCollections.observableArrayList(SettingsDAO.getSettingsList()));
 
         } catch (Exception e) {
             System.err.println("Error initializing datasets: " + e.getMessage());
