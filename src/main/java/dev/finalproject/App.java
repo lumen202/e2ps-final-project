@@ -21,7 +21,7 @@ public class App extends FXApplication {
     public static final FXNodeRegister NODE_REGISTER = FXNodeRegister.INSTANCE;
 
     public static final DBService DB_SMS = DBService.INSTANCE
-            .initialize(LOCAL_HOST);
+            .initialize(LAB_HOST);
 
     @Override
     public void initialize() throws Exception {
