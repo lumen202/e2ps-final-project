@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 01, 2025 at 06:54 AM
+-- Generation Time: Apr 20, 2025 at 05:24 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -84,8 +84,8 @@ CREATE TABLE `attendance_log` (
 --
 
 INSERT INTO `attendance_log` (`logID`, `recordID`, `student_id`, `time_in_am`, `time_out_am`, `time_in_pm`, `time_out_pm`) VALUES
-(1, 1, 1, 730, 1130, 1300, 1630),
-(2, 2, 1, 730, 1130, 1300, 1630);
+(1, 1, 5, 137, 137, 0, 0),
+(2, 1, 1, 730, 1130, 1300, 1630);
 
 -- --------------------------------------------------------
 
@@ -105,8 +105,7 @@ CREATE TABLE `attendance_record` (
 --
 
 INSERT INTO `attendance_record` (`recordID`, `Month`, `Day`, `Year`) VALUES
-(1, 3, 3, 2025),
-(2, 3, 4, 2025);
+(1, 4, 4, 2025);
 
 -- --------------------------------------------------------
 
@@ -222,7 +221,37 @@ CREATE TABLE `school_year` (
 
 INSERT INTO `school_year` (`yearID`, `year_start`, `year_end`, `month_start`, `monthEnd`, `day_start`, `day_end`) VALUES
 (1, 2024, 2025, 'August', 'June', 12, 27),
-(2, 2025, 2026, 'SEPTEMBER', 'JUNE', 1, 30);
+(2, 2025, 2026, 'SEPTEMBER', 'JUNE', 1, 30),
+(13, 2026, 2027, 'SEPTEMBER', 'OCTOBER', 1, 31);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `settings_attendance`
+--
+
+CREATE TABLE `settings_attendance` (
+  `settingsID` varchar(100) NOT NULL,
+  `start` int(11) NOT NULL,
+  `end` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `settings_attendance`
+--
+
+INSERT INTO `settings_attendance` (`settingsID`, `start`, `end`) VALUES
+('April 2025', 1, 30),
+('August 2024', 1, 31),
+('December 2024', 1, 31),
+('February 2025', 1, 28),
+('January 2025', 1, 31),
+('July 2024', 1, 31),
+('March 2025', 1, 31),
+('May 2025', 1, 31),
+('November 2024', 1, 30),
+('October 2024', 1, 31),
+('September 2024', 1, 30);
 
 -- --------------------------------------------------------
 
@@ -233,6 +262,7 @@ INSERT INTO `school_year` (`yearID`, `year_start`, `year_end`, `month_start`, `m
 CREATE TABLE `student` (
   `StudentID` int(11) NOT NULL,
   `deleted` int(1) NOT NULL,
+  `deleted_at` datetime DEFAULT NULL,
   `yearID` int(11) NOT NULL,
   `FirstName` varchar(20) NOT NULL,
   `LastName` varchar(20) NOT NULL,
@@ -250,29 +280,52 @@ CREATE TABLE `student` (
 -- Dumping data for table `student`
 --
 
-INSERT INTO `student` (`StudentID`, `deleted`, `yearID`, `FirstName`, `LastName`, `MiddleName`, `NameExtension`, `Email`, `Status`, `ContactInfo`, `DateofBirth`, `Fare`, `ClusterID`) VALUES
-(1, 0, 1, 'Daniel', 'Dela Torre', 'Estremos', '', 'delatorredaniel2006@gmail.com', 'Active', '09935927942', '2025-03-30', 201, 31),
-(2, 0, 1, 'Jay Anthony', 'De Villena', 'Almosa', '', 'godsanthony15@gmail.com', 'Active', '09563796024', '2025-03-30', 0, 32),
-(3, 0, 1, 'Shallei Elizabeth', 'Laping', 'Sanico', '', 'shalleielizabethlaping06@gmail', 'Active', '09938790415', '2025-03-30', 0, 33),
-(4, 0, 1, 'Reymark', 'Fernandez', 'Caputol', '', 'reymarkfernandez71@gmail.com', 'Active', '09480266342', '2025-03-30', 0, 34),
-(5, 0, 1, 'Joshua', 'Diniega', 'Rubillos', '', 'jdiniega202@gmail.com', 'Active', '09208883990', '2025-03-30', 0, 35),
-(6, 0, 1, 'Roniljess', 'Matugas', 'Ereve', '', 'roniljessmatugas@gmail.com', 'Active', '09704525110', '2025-03-30', 0, 36),
-(7, 0, 1, 'MYRA', 'PADALAPAT', 'OLAYBAR', '', '121649100034@r8.deped.gov.ph', 'Active', '09208839244', '2025-03-30', 0, 37),
-(8, 0, 1, 'Marco', 'Dichon', 'Galagar', '', 'marcopain99@gmail.com', 'Active', '09471415988', '2025-03-30', 0, 38),
-(9, 0, 1, 'Cherry Anne', 'Erlandez', 'Zagado', '', 'cherryanneerlandez96@gmail.com', 'Active', '09269797129', '2025-03-30', 0, 39),
-(10, 0, 1, 'Vicente', 'Costado', 'Tahil', 'Jr', 'vicentecostadojr@gmail.com', 'Active', '09368248415', '2025-03-30', 0, 40),
-(11, 0, 2, 'Daniel', 'Dela Torre', 'Estremos', '', 'delatorredaniel2006@gmail.com', 'Active', '09935927942', '2025-03-30', 0, 41),
-(12, 0, 2, 'Jay Anthony', 'De Villena', 'Almosa', '', 'godsanthony15@gmail.com', 'Active', '09563796024', '2025-03-30', 0, 42),
-(13, 0, 2, 'Shallei Elizabeth', 'Laping', 'Sanico', '', 'shalleielizabethlaping06@gmail', 'Active', '09938790415', '2025-03-30', 0, 43),
-(14, 0, 2, 'Reymark', 'Fernandez', 'Caputol', '', 'reymarkfernandez71@gmail.com', 'Active', '09480266342', '2025-03-30', 0, 44),
-(15, 0, 2, 'Joshua', 'Diniega', 'Rubillos', '', 'jdiniega202@gmail.com', 'Active', '09208883990', '2025-03-30', 0, 45),
-(16, 0, 2, 'Roniljess', 'Matugas', 'Ereve', '', 'roniljessmatugas@gmail.com', 'Active', '09704525110', '2025-03-30', 0, 46),
-(17, 0, 2, 'MYRA', 'PADALAPAT', 'OLAYBAR', '', '121649100034@r8.deped.gov.ph', 'Active', '09208839244', '2025-03-30', 0, 47),
-(18, 0, 2, 'Marco', 'Dichon', 'Galagar', '', 'marcopain99@gmail.com', 'Active', '09471415988', '2025-03-30', 0, 48),
-(19, 0, 2, 'Cherry Anne', 'Erlandez', 'Zagado', '', 'cherryanneerlandez96@gmail.com', 'Active', '09269797129', '2025-03-30', 0, 49),
-(20, 0, 2, 'Vicente', 'Costado', 'Tahil', 'Jr', 'vicentecostadojr@gmail.com', 'Active', '09368248415', '2025-03-30', 0, 50),
-(21, 0, 1, 'Jonh', 'Doe', 'Son', 'Sr.', 'jaskalas@gmail.com', 'Active', '091234', '2015-04-04', 23, 24),
-(22, 0, 1, 'Jonh', 'Doe', 'Son', 'Sr.', 'jaskalas@gmail.com', 'Active', '091234', '2015-04-04', 23, 24);
+INSERT INTO `student` (`StudentID`, `deleted`, `deleted_at`, `yearID`, `FirstName`, `LastName`, `MiddleName`, `NameExtension`, `Email`, `Status`, `ContactInfo`, `DateofBirth`, `Fare`, `ClusterID`) VALUES
+(1, 0, NULL, 1, 'Daniel', 'Dela Torre', 'Estremos', '', 'delatorredaniel2006@gmail.com', 'Active', '09935927942', '2025-03-30', 201, 31),
+(2, 0, NULL, 1, 'Jay Anthony', 'De Villena', 'Almosa', '', 'godsanthony15@gmail.com', 'Active', '09563796024', '2025-03-30', 0, 32),
+(3, 0, NULL, 1, 'Shallei Elizabeth', 'Laping', 'Sanico', '', 'shalleielizabethlaping06@gmail', 'Active', '09938790415', '2025-03-30', 0, 33),
+(4, 0, NULL, 1, 'Reymark', 'Fernandez', 'Caputol', '', 'reymarkfernandez71@gmail.com', 'Active', '09480266342', '2025-03-30', 0, 34),
+(5, 0, NULL, 1, 'Joshua', 'Diniega', 'Rubillos', '', 'jdiniega202@gmail.com', 'Active', '09208883990', '2025-03-30', 0, 35),
+(6, 0, NULL, 1, 'Roniljess', 'Matugas', 'Ereve', '', 'roniljessmatugas@gmail.com', 'Active', '09704525110', '2025-03-30', 0, 36),
+(7, 0, NULL, 1, 'MYRA', 'PADALAPAT', 'OLAYBAR', '', '121649100034@r8.deped.gov.ph', 'Active', '09208839244', '2025-03-30', 0, 37),
+(8, 0, NULL, 1, 'Marco', 'Dichon', 'Galagar', '', 'marcopain99@gmail.com', 'Active', '09471415988', '2025-03-30', 0, 38),
+(9, 0, NULL, 1, 'Cherry Anne', 'Erlandez', 'Zagado', '', 'cherryanneerlandez96@gmail.com', 'Active', '09269797129', '2025-03-30', 0, 39),
+(10, 0, NULL, 1, 'Vicente', 'Costado', 'Tahil', 'Jr', 'vicentecostadojr@gmail.com', 'Active', '09368248415', '2025-03-30', 0, 40),
+(11, 0, NULL, 2, 'Daniel', 'Dela Torre', 'Estremos', '', 'delatorredaniel2006@gmail.com', 'Active', '09935927942', '2025-03-30', 0, 41),
+(12, 0, NULL, 2, 'Jay Anthony', 'De Villena', 'Almosa', '', 'godsanthony15@gmail.com', 'Active', '09563796024', '2025-03-30', 0, 42),
+(13, 0, NULL, 2, 'Shallei Elizabeth', 'Laping', 'Sanico', '', 'shalleielizabethlaping06@gmail', 'Active', '09938790415', '2025-03-30', 0, 43),
+(14, 0, NULL, 2, 'Reymark', 'Fernandez', 'Caputol', '', 'reymarkfernandez71@gmail.com', 'Active', '09480266342', '2025-03-30', 0, 44),
+(15, 0, NULL, 2, 'Joshua', 'Diniega', 'Rubillos', '', 'jdiniega202@gmail.com', 'Active', '09208883990', '2025-03-30', 0, 45),
+(16, 0, NULL, 2, 'Roniljess', 'Matugas', 'Ereve', '', 'roniljessmatugas@gmail.com', 'Active', '09704525110', '2025-03-30', 0, 46),
+(17, 0, NULL, 2, 'MYRA', 'PADALAPAT', 'OLAYBAR', '', '121649100034@r8.deped.gov.ph', 'Active', '09208839244', '2025-03-30', 0, 47),
+(18, 0, NULL, 2, 'Marco', 'Dichon', 'Galagar', '', 'marcopain99@gmail.com', 'Active', '09471415988', '2025-03-30', 0, 48),
+(19, 0, NULL, 2, 'Cherry Anne', 'Erlandez', 'Zagado', '', 'cherryanneerlandez96@gmail.com', 'Active', '09269797129', '2025-03-30', 0, 49),
+(20, 0, NULL, 2, 'Vicente', 'Costado', 'Tahil', 'Jr', 'vicentecostadojr@gmail.com', 'Active', '09368248415', '2025-03-30', 0, 50),
+(21, 0, NULL, 1, 'Jonh', 'Doe', 'Son', 'Sr.', 'jaskalas@gmail.com', 'Active', '091234', '2015-04-04', 23, 24),
+(22, 1, NULL, 1, 'Jonh', 'Doe', 'Son', 'Sr.', 'jaskalas@gmail.com', 'Active', '091234', '2015-04-04', 23, 24),
+(23, 0, NULL, 1, 'MYRA', 'PADALAPAT', 'OLAYBAR', '', '121649100034@r8.deped.gov.ph', 'Active', '09208839244', '2025-03-30', 0, 47);
+
+--
+-- Triggers `student`
+--
+DELIMITER $$
+CREATE TRIGGER `student_before_insert` BEFORE INSERT ON `student` FOR EACH ROW BEGIN
+  IF NEW.deleted = 1 THEN
+    SET NEW.deleted_at = CURRENT_TIMESTAMP;
+  END IF;
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `student_before_update` BEFORE UPDATE ON `student` FOR EACH ROW BEGIN
+  -- change this IF to OLD.deleted = 0 AND NEW.deleted = 1
+  -- if you only want to record when it goes from 0→1
+  IF NEW.deleted <> OLD.deleted THEN
+    SET NEW.deleted_at = CURRENT_TIMESTAMP;
+  END IF;
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -336,6 +389,12 @@ ALTER TABLE `school_year`
   ADD PRIMARY KEY (`yearID`);
 
 --
+-- Indexes for table `settings_attendance`
+--
+ALTER TABLE `settings_attendance`
+  ADD UNIQUE KEY `settingsID` (`settingsID`);
+
+--
 -- Indexes for table `student`
 --
 ALTER TABLE `student`
@@ -364,7 +423,7 @@ ALTER TABLE `address`
 -- AUTO_INCREMENT for table `attendance_log`
 --
 ALTER TABLE `attendance_log`
-  MODIFY `logID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
+  MODIFY `logID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
 
 --
 -- AUTO_INCREMENT for table `attendance_record`
@@ -388,13 +447,13 @@ ALTER TABLE `guardian`
 -- AUTO_INCREMENT for table `school_year`
 --
 ALTER TABLE `school_year`
-  MODIFY `yearID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `yearID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `student`
 --
 ALTER TABLE `student`
-  MODIFY `StudentID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `StudentID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- Constraints for dumped tables
