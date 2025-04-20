@@ -10,6 +10,7 @@ import dev.sol.core.properties.beans.FXObjectProperty;
 import dev.sol.core.properties.beans.FXStringProperty;
 
 public class Student extends FXModel {
+
     private FXIntegerProperty studentID;
     private FXStringProperty firstName;
     private FXStringProperty middleName;
@@ -23,6 +24,7 @@ public class Student extends FXModel {
     private FXObjectProperty<Cluster> clusterID;
     private FXObjectProperty<SchoolYear> yearID;
     private FXIntegerProperty deleted;
+    private FXObjectProperty<Date> deletedAt;
 
     public Student(int studentID,
             String firstName,
@@ -50,7 +52,7 @@ public class Student extends FXModel {
         this.clusterID = new FXObjectProperty<Cluster>(clusterID);
         this.yearID = new FXObjectProperty<SchoolYear>(yearID);
         this.deleted = new FXIntegerProperty(deleted);
-
+        this.deletedAt = new FXObjectProperty<Date>(null);
     }
 
     public FXIntegerProperty studentIDProperty() {
@@ -206,7 +208,19 @@ public class Student extends FXModel {
     }
 
     public void setDeleted(int deleted) {
-       deletedProperty().set(deleted);
+        deletedProperty().set(deleted);
+    }
+
+    public FXObjectProperty<Date> deletedAtProperty() {
+        return this.deletedAt;
+    }
+
+    public Date getDeletedAt() {
+        return this.deletedAtProperty().get();
+    }
+
+    public void setDeletedAt(Date deletedAt) {
+        deletedAtProperty().set(deletedAt);
     }
 
     public String getFullName() {
@@ -228,9 +242,8 @@ public class Student extends FXModel {
                 getClusterID(),
                 getYearID(),
                 isDeleted());
-
+        student.setDeletedAt(getDeletedAt());
         return student;
-
     }
 
     @Override
@@ -249,7 +262,7 @@ public class Student extends FXModel {
         setClusterID(c.getClusterID());
         setYearID(c.getYearID());
         setDeleted(c.isDeleted());
-
+        setDeletedAt(c.getDeletedAt());
     }
 
 }

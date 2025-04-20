@@ -68,8 +68,10 @@ public class StudentDAO {
             double fare = crs.getDouble("Fare");
             int deleted = crs.getInt("deleted");
 
-            return new Student(id, firstName, middleName, lastName, nameExtension, email, status, contact,
+            Student student = new Student(id, firstName, middleName, lastName, nameExtension, email, status, contact,
                     dateOfBirth, fare, cluster, year, deleted);
+            student.setDeletedAt(crs.getDate("deleted_at"));
+            return student;
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -94,6 +96,7 @@ public class StudentDAO {
         paramList.add(new DBParam(DBType.NUMERIC, "ClusterID", clusterID));
         paramList.add(new DBParam(DBType.NUMERIC, "yearID", student.getYearID().getYearID()));
         paramList.add(new DBParam(DBType.NUMERIC, "deleted", student.isDeleted()));
+        paramList.add(new DBParam(DBType.DATE, "deleted_at", student.getDeletedAt()));
 
         return paramList.toArray(new DBParam[0]);
     }
