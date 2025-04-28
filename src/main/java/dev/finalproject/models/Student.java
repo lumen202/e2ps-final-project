@@ -24,7 +24,7 @@ public class Student extends FXModel {
     private FXObjectProperty<Cluster> clusterID;
     private FXObjectProperty<SchoolYear> yearID;
     private FXIntegerProperty deleted;
-    private FXObjectProperty<Date> deletedAt;
+    private FXStringProperty deletedAt;
 
     public Student(int studentID,
             String firstName,
@@ -38,7 +38,8 @@ public class Student extends FXModel {
             double fare,
             Cluster clusterID,
             SchoolYear yearID,
-            int deleted) {
+            int deleted,
+            String deletedAt) {
         this.studentID = new FXIntegerProperty(studentID);
         this.firstName = new FXStringProperty(firstName);
         this.middleName = new FXStringProperty(middleName);
@@ -52,7 +53,7 @@ public class Student extends FXModel {
         this.clusterID = new FXObjectProperty<Cluster>(clusterID);
         this.yearID = new FXObjectProperty<SchoolYear>(yearID);
         this.deleted = new FXIntegerProperty(deleted);
-        this.deletedAt = new FXObjectProperty<Date>(null);
+        this.deletedAt = new FXStringProperty(deletedAt);
     }
 
     public FXIntegerProperty studentIDProperty() {
@@ -211,15 +212,15 @@ public class Student extends FXModel {
         deletedProperty().set(deleted);
     }
 
-    public FXObjectProperty<Date> deletedAtProperty() {
+    public FXStringProperty deletedAtProperty() {
         return this.deletedAt;
     }
 
-    public Date getDeletedAt() {
+    public String getDeletedAt() {
         return this.deletedAtProperty().get();
     }
 
-    public void setDeletedAt(Date deletedAt) {
+    public void setDeletedAt(String deletedAt) {
         deletedAtProperty().set(deletedAt);
     }
 
@@ -241,8 +242,8 @@ public class Student extends FXModel {
                 getFare(),
                 getClusterID(),
                 getYearID(),
-                isDeleted());
-        student.setDeletedAt(getDeletedAt());
+                isDeleted(), getDeletedAt());
+
         return student;
     }
 
