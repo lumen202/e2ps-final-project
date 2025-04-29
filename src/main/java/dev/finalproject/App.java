@@ -13,7 +13,7 @@ import dev.sol.db.DBService;
 public class App extends FXApplication {
 
     public static final String REMOTE_HOST = "jdbc:mysql://192.168.254.108:3306/student_management_system_db?user=root&password=admin&allowPublicKeyRetrieval=true&useSSL=false";
-    public static final String LOCAL_HOST = "jdbc:mysql://localhost/student_management_system_db?user=root&password=admin";
+    public static final String LOCAL_HOST = "jdbc:mysql://localhost/student_management_system_db?user=root&password=";
     public static final String LAB_HOST = "jdbc:mysql://192.168.254.108:3306/student_management_system_db?user=remote_user&allowPublicKeyRetrieval=true&useSSL=false";
 
     public static final FXControllerRegister CONTROLLER_REGISTRY = FXControllerRegister.INSTANCE;
