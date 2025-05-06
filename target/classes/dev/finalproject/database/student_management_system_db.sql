@@ -11,7 +11,6 @@ SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
 
-
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
@@ -112,13 +111,14 @@ CREATE TABLE `guardian` (
 --
 
 CREATE TABLE `school_year` (
-  `yearID` int(11) NOT NULL,
+  `yearID` int(11) NOT NULL AUTO_INCREMENT,
   `year_start` int(11) NOT NULL,
   `year_end` int(11) NOT NULL,
   `month_start` varchar(10) NOT NULL,
   `monthEnd` varchar(10) NOT NULL,
   `day_start` int(11) NOT NULL,
-  `day_end` int(11) NOT NULL
+  `day_end` int(11) NOT NULL,
+  PRIMARY KEY (`yearID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -212,8 +212,7 @@ ALTER TABLE `guardian`
 --
 -- Indexes for table `school_year`
 --
-ALTER TABLE `school_year`
-  ADD PRIMARY KEY (`yearID`);
+-- Already included as PRIMARY KEY in creation.
 
 --
 -- Indexes for table `student`
@@ -269,6 +268,7 @@ ALTER TABLE `student`
 ALTER TABLE `student_guardian`
   ADD CONSTRAINT `student_guardian_ibfk_1` FOREIGN KEY (`studentID`) REFERENCES `student` (`StudentID`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `student_guardian_ibfk_2` FOREIGN KEY (`guardianID`) REFERENCES `guardian` (`guardianID`) ON DELETE CASCADE ON UPDATE CASCADE;
+
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
