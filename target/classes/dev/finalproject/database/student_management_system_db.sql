@@ -33,7 +33,7 @@ CREATE TABLE `address` (
   `municipality` varchar(50) NOT NULL,
   `street` varchar(50) DEFAULT NULL,
   `barangay` varchar(50) DEFAULT NULL,
-  `zipCode` int(11) NOT NULL
+  `zipCode` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -171,67 +171,34 @@ CREATE TABLE `student_guardian` (
 -- Indexes for dumped tables
 --
 
---
--- Indexes for table `address`
---
 ALTER TABLE `address`
   ADD KEY `Student_ID` (`studentID`);
 
---
--- Indexes for table `attendance_log`
---
 ALTER TABLE `attendance_log`
   ADD PRIMARY KEY (`logID`),
   ADD KEY `Log_ID` (`recordID`),
   ADD KEY `Student_ID` (`student_id`);
 
---
--- Indexes for table `attendance_record`
---
 ALTER TABLE `attendance_record`
   ADD PRIMARY KEY (`recordID`);
 
---
--- Indexes for table `cluster`
---
 ALTER TABLE `cluster`
   ADD PRIMARY KEY (`clusterID`);
 
---
--- Indexes for table `db_changes_log`
---
 ALTER TABLE `db_changes_log`
   ADD PRIMARY KEY (`id`);
 
---
--- Indexes for table `guardian`
---
 ALTER TABLE `guardian`
   ADD PRIMARY KEY (`guardianID`);
 
---
--- Indexes for table `school_year`
---
--- Already included as PRIMARY KEY in creation.
-
---
--- Indexes for table `student`
---
 ALTER TABLE `student`
   ADD PRIMARY KEY (`StudentID`),
   ADD KEY `ClusterID` (`ClusterID`),
   ADD KEY `yearID` (`yearID`);
 
---
--- Indexes for table `student_guardian`
---
 ALTER TABLE `student_guardian`
   ADD KEY `Student_ID` (`studentID`),
   ADD KEY `Guardian_ID` (`guardianID`);
-
---
--- AUTO_INCREMENT for dumped tables
---
 
 --
 -- AUTO_INCREMENT for table `db_changes_log`
@@ -243,28 +210,16 @@ ALTER TABLE `db_changes_log`
 -- Constraints for dumped tables
 --
 
---
--- Constraints for table `address`
---
 ALTER TABLE `address`
   ADD CONSTRAINT `address_ibfk_1` FOREIGN KEY (`studentID`) REFERENCES `student` (`StudentID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
---
--- Constraints for table `attendance_log`
---
 ALTER TABLE `attendance_log`
   ADD CONSTRAINT `attendance_log_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `student` (`StudentID`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `attendance_log_ibfk_2` FOREIGN KEY (`recordID`) REFERENCES `attendance_record` (`recordID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
---
--- Constraints for table `student`
---
 ALTER TABLE `student`
   ADD CONSTRAINT `student_ibfk_1` FOREIGN KEY (`ClusterID`) REFERENCES `cluster` (`clusterID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
---
--- Constraints for table `student_guardian`
---
 ALTER TABLE `student_guardian`
   ADD CONSTRAINT `student_guardian_ibfk_1` FOREIGN KEY (`studentID`) REFERENCES `student` (`StudentID`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `student_guardian_ibfk_2` FOREIGN KEY (`guardianID`) REFERENCES `guardian` (`guardianID`) ON DELETE CASCADE ON UPDATE CASCADE;
