@@ -26,12 +26,12 @@ public class SchoolYearDAO {
             int dayStart = crs.getInt("day_start");
             int dayEnd = crs.getInt("day_end");
 
-            return new SchoolYear(yearID, 
-                    yearStart, 
-                    yearEnd, 
-                    monthStart, 
-                    monthEnd, 
-                    dayStart, 
+            return new SchoolYear(yearID,
+                    yearStart,
+                    yearEnd,
+                    monthStart,
+                    monthEnd,
+                    dayStart,
                     dayEnd);
 
         } catch (SQLException e) {
@@ -42,11 +42,12 @@ public class SchoolYearDAO {
 
     private static DBParam[] paramList(SchoolYear schoolYear) {
         List<DBParam> paramList = new LinkedList<>();
-
+        paramList.add(new DBParam(DBType.NUMERIC, "yearID", schoolYear.getYearID())); // Changed from year_id
         paramList.add(new DBParam(DBType.NUMERIC, "year_start", schoolYear.getYearStart()));
         paramList.add(new DBParam(DBType.NUMERIC, "year_end", schoolYear.getYearEnd()));
         paramList.add(new DBParam(DBType.TEXT, "month_start", schoolYear.getMonthStart()));
-        paramList.add(new DBParam(DBType.TEXT, "monthEnd", schoolYear.getMonthEnd())); // Changed to match DB column case
+        paramList.add(new DBParam(DBType.TEXT, "monthEnd", schoolYear.getMonthEnd())); // Changed to match DB column
+                                                                                       // case
         paramList.add(new DBParam(DBType.NUMERIC, "day_start", schoolYear.getDayStart()));
         paramList.add(new DBParam(DBType.NUMERIC, "day_end", schoolYear.getDayEnd()));
 
@@ -74,14 +75,14 @@ public class SchoolYearDAO {
     }
 
     public static void delete(SchoolYear schoolYear) {
-        DB.delete(TABLE, new DBParam(DBType.NUMERIC, "yearID", schoolYear.getYearID()));  // Changed from year_id
+        DB.delete(TABLE, new DBParam(DBType.NUMERIC, "yearID", schoolYear.getYearID())); // Changed from year_id
     }
 
     public static void update(SchoolYear schoolYear) {
         DBParam[] params = paramList(schoolYear);
 
-            DB.update(TABLE, new DBParam(DBType.NUMERIC, "yearID",   // Changed from year_id
-                    schoolYear.getYearID()), params);
-        
+        DB.update(TABLE, new DBParam(DBType.NUMERIC, "yearID", // Changed from year_id
+                schoolYear.getYearID()), params);
+
     }
 }
